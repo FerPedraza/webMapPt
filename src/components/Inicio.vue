@@ -21,6 +21,9 @@
         </b-row>
       </b-container>
     </div>
+    <div id="barraMenu">
+      
+    </div>
     <div id="map">
       
     </div>
@@ -110,26 +113,11 @@ export default {
     },
     mostrarArea(){
       console.log("Zoom al mapa");
-      this.map.flyTo({
-        center: [this.puntoSeleccionado.lng,this.puntoSeleccionado.lat],
-        zoom: 12,
-        bearing: 0,
- 
-// These options control the flight curve, making it move
-// slowly and zoom out almost completely before starting
-// to pan.
-speed: 0.4, // make the flying slow
-curve: 1, // change the speed at which it zooms out
- 
-// This can be any easing function: it takes a number between
-// 0 and 1 and returns another number between 0 and 1.
-easing: function(t) {
-return t;
-},
- 
-// this animation is considered essential with respect to prefers-reduced-motion
-essential: true
-});
+      // Geographic coordinates of the LineString
+      this.map.fitBounds([
+        [this.puntoSeleccionado.lng,(this.puntoSeleccionado.lat + this.radio/111)],
+        [this.puntoSeleccionado.lng,(this.puntoSeleccionado.lat - this.radio/111)]
+      ]);
 
     },
     delimitarArea() {
@@ -190,17 +178,27 @@ essential: true
 @import url("https://api.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css");
 #map {
   position: absolute;
-  top: 0;
+  top: 4em;
   left: 0;
-  height: 100%;
+  height: 95%;
   width: 100%;
   z-index: -99;
 }
+#barraMenu{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 5%;
+  width: 100%;
+  z-index: -99;
+  background: #1a9ea6;
+}
+
 #bienvenidaFrame {
   position: absolute;
   width: 566px;
   height: 328px;
-  left: 437px;
+  left: 35%;
   top: 30%;
   background: #1a9ea6;
 }

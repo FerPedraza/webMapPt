@@ -15,7 +15,7 @@
           <input type="password" placeholder="Contraseña" v-model="password" />
         </div>
       </div>
-      <div id="googleLogin">
+      <div id="googleLogin" @click="loginGoogle">
         <img src="../assets/google-icon.png" alt />
       </div>
       <div id="loginButtonWrapper">
@@ -48,6 +48,31 @@ export default {
           localStorage.setItem("usuario", user);
           this.$router.replace("/inicio");
         });
+    },
+    loginGoogle() {
+      var provider = new firebase.auth.GoogleAuthProvider();
+      var self = this
+      firebase.auth().signInWithPopup(provider).then(function(result) {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        //var token = result.credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        localStorage.setItem("usuario", user);
+        self.$router.replace("/inicio");
+        // ...
+      }).catch(function(error) {
+        // Handle Errors here.
+        console.log(error);
+        //var errorCode = error.code;
+        //var errorMessage = error.message;
+        // The email of the user's account used.
+        //var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        //var credential = error.credential;
+        // ...
+      });
+      
+      
     },
     olvidarPasswd() {
       this.$router.replace("/recuperarCuenta");
