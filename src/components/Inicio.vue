@@ -8,23 +8,35 @@
       </p>
       <button type="button" id="entendidoButton" @click="esconderMensaje">Entendido</button>
     </div>
-    <div id="popupLugar" v-show="puntoSeleccionado.showPopup">
+    <div v-bind:id="['popupLugar']" v-bind:style="popupLugarContainer" v-show="puntoSeleccionado.showPopup" >
       <p>{{puntoSeleccionado.lat}},{{puntoSeleccionado.lng}}</p>
       <b-container fluid class="seleccionarRadio">
         <b-row class="my-1">
           <b-col sm="8">
-            <b-form-input id="ingresarRadio" v-model="radio" v-on:submit="seleccionarPunto"></b-form-input>
+            <b-form-input id="ingresarRadio" v-model="radio" @click="delimitarArea"></b-form-input>
             <label for="ingresarRadio">Ingresar Radio en km</label>
-            <button v-show="delimitarAreaShowup" type="button" id="delimitarButton" @click="delimitarArea">Determinar</button>
-            <button v-show="mostrarAreaShowup" type="button" id="delimitarButton" @click="mostrarArea">Mostrar</button>
+            <!--<button v-show="delimitarAreaShowup" type="button" id="delimitarButton" @click="delimitarArea">Determinar</button>-->
+            <button  type="button" id="delimitarButton" @click="mostrarArea">Mostrar</button>
           </b-col>
         </b-row>
       </b-container>
     </div>
     <div id="barraMenu">
-      
+      <div id="menu" type="button" @click="desplegarMenu">
+          <img src="../assets/menu.png" width="37px" height="40px" alt />
+          
+      </div>
     </div>
-    <div id="map">
+    <div id="menuCard" v-show="menuShowup">
+        <div id="backMenu" @click="ocultarMenu">
+          <img src="../assets/arrow.png" width="50px" height="47px" type="button" alt />
+          
+      </div>
+
+
+
+    </div>
+    <div v-bind:id="['map']" v-bind:style="mapContainer">
       
     </div>
   </div>
@@ -32,7 +44,7 @@
 <script>
 import Mapbox from "mapbox-gl";
 import {mapState} from 'vuex'; 
-
+var _ = require('lodash');
 export default {
   computed: {
     ...mapState(['puntoSeleccionado'])
@@ -46,13 +58,34 @@ export default {
       mapStyle: 'mapbox://styles/angelraguilera/ck54ht1zz00wi1cmu46sgd4ds',
       center: [-99.154037, 19.501014],
       zoom: 12,
-      delimitarAreaShowup: true,
-      mostrarAreaShowup: false
+      menuShowup: false,
+      mapContainer:{
+          position: 'absolute',
+          top: '5%',
+          left: '0',
+          height: '95%',
+          width: '100%',
+          
+      },
+      popupLugarContainer:{
+        left: '42%',
+    }
+      //delimitarAreaShowup: true,
+      //mostrarAreaShowup: true
     };
+  },
+  watch: {
+    // whenever question changes, this function will run
+      radio: function () {
+      this.answer = 'Waiting for you to stop typing...'
+      this.debouncedGetAnswer()
+    }
   },
   mounted () {
     this.createMap()
-    this.btnPuntoLabel == 'Determinar'
+  },
+  created: function () {
+    this.debouncedGetAnswer = _.debounce(this.delimitarArea, 500)
   },
   methods: {
     createMap: function () {
@@ -67,8 +100,13 @@ export default {
         console.log(this.$store.state.puntoSeleccionado.showPopup)
       })
       this.map.on('click', (e) => {
-        this.delimitarAreaShowup = true;
-        this.mostrarAreaShowup = false;
+        this.radio =0;
+        if (this.map.getLayer("marker")) {
+          this.map.removeLayer("marker");
+        }
+        if (this.map.getSource("markers")) {
+          this.map.removeSource("markers");
+        }
         if (this.map.getLayer("points")) {
           this.map.removeLayer("points");
         }
@@ -120,9 +158,21 @@ export default {
       ]);
 
     },
+    desplegarMenu(){
+      this.menuShowup = true;
+      this.mapContainer.width = "80%";
+      this.mapContainer.left = "20%";
+      this.popupLugarContainer.left = "57%";
+    },
+    ocultarMenu(){
+      this.menuShowup = false;
+      this.mapContainer.width = "100%";
+      this.mapContainer.left = "0%";
+      this.popupLugarContainer.left = "42%";
+    },
+
     delimitarArea() {
-      this.delimitarAreaShowup = false;
-      this.mostrarAreaShowup = true;
+      
       if (this.radio > 0){
         if (this.map.getLayer("points")) {
           this.map.removeLayer("points");
@@ -177,12 +227,23 @@ export default {
 <style scoped>
 @import url("https://api.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css");
 #map {
-  position: absolute;
-  top: 4em;
-  left: 0;
-  height: 95%;
-  width: 100%;
   z-index: -99;
+}
+#menuCard{
+  position: absolute;
+  width: 20%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: #1a9ea6;
+}
+#backMenu {
+  position: absolute;
+  width: 3%;
+  height: 3%;
+  right: 14%;
+  top: 0.7%;
+  background: #1a9ea6;
 }
 #barraMenu{
   position: absolute;
@@ -198,7 +259,7 @@ export default {
   position: absolute;
   width: 566px;
   height: 328px;
-  left: 35%;
+  left: 36%;
   top: 30%;
   background: #1a9ea6;
 }
@@ -206,8 +267,8 @@ export default {
   position: absolute;
   width: 234px;
   height: 53px;
-  left: 166px;
-  top: 37px;
+  left: 30%;
+  top: 15%;
   font-family: Manjari;
   font-style: normal;
   font-weight: normal;
@@ -244,7 +305,6 @@ export default {
   position: absolute;
   width: 319px;
   height: 242px;
-  left: 40%;
   top: 65%;
   background: #1a9ea6;
 }
@@ -257,5 +317,13 @@ export default {
   background: #11656a;
   border-color: #11656a;
   color: #ffff;
+}
+#menu {
+  position: absolute;
+  width: 3%;
+  height: 3%;
+  left: 0.5%;
+  top: 8%;
+  background: #1a9ea6;
 }
 </style>

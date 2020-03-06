@@ -13,6 +13,7 @@
     "core-js": "^3.4.3",
     "es6-promise": "^4.2.8",
     "firebase": "^7.7.0",
+    "lodash": "^4.17.15",
     "mapbox-gl": "^1.7.0",
     "mapbox-gl-draw-circle": "^1.1.1",
     "mapbox-gl-vue": "^2.0.4",

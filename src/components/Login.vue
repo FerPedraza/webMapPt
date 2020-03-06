@@ -15,8 +15,8 @@
           <input type="password" placeholder="Contraseña" v-model="password" />
         </div>
       </div>
-      <div id="googleLogin" @click="loginGoogle">
-        <img src="../assets/google-icon.png" alt />
+      <div id="googleLogin"  @click="loginGoogle">
+        <img type="button" src="../assets/google-icon.png" alt />
       </div>
       <div id="loginButtonWrapper">
         <button id="loginButton" @click="login">LOGIN</button>
@@ -93,7 +93,7 @@ export default {
   position: absolute;
   top: 20%;
   transform: translateX(70%);
-  width: 40%;
+  width: 42%;
   height: 60%;
 }
 #logo {
@@ -106,14 +106,17 @@ export default {
 .textInput {
   position: relative;
   top: 10%;
-  padding: 1em;
+  padding: 3%;
   left: 0%;
 }
 .textInput img {
-  margin-right: 0.5em;
+  margin-right: 1%;
 }
 #passwordInput {
-  margin: 1em;
+  margin: 0.5%;
+}
+#userInput {
+  margin: 0.5%;
 }
 #googleLogin {
   position: relative;
@@ -146,7 +149,7 @@ export default {
   position: absolute;
   background-color: #1a9ea6;
   width: 100%;
-  height: 130px;
+  height: 12%;
   left: 0px;
   top: 0px;
 }
@@ -154,7 +157,7 @@ export default {
   position: absolute;
   background-color: #1a9ea6;
   width: 100%;
-  height: 130px;
+  height: 13%;
   left: 0px;
   bottom: 0px;
 }
