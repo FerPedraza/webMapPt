@@ -9,6 +9,7 @@
       <button type="button" id="entendidoButton" @click="esconderMensaje">Entendido</button>
     </div>
     <div v-bind:id="['popupLugar']" v-bind:style="popupLugarContainer" v-show="puntoSeleccionado.showPopup" >
+      <p>{{puntoSeleccionado.direccion}}</p> 
       <p>{{puntoSeleccionado.lat}},{{puntoSeleccionado.lng}}</p>
       <b-container fluid class="seleccionarRadio">
         <b-row class="my-1">
@@ -26,15 +27,58 @@
           <img src="../assets/menu.png" width="37px" height="40px" alt />
           
       </div>
-    </div>
-    <div id="menuCard" v-show="menuShowup">
-        <div id="backMenu" @click="ocultarMenu">
-          <img src="../assets/arrow.png" width="50px" height="47px" type="button" alt />
+      <div id="logout" type="button" @click="logOut">
+          <img src="../assets/logoutIcon.png" width="37px" height="40px" alt />
           
       </div>
-
-
-
+    </div>
+    <div id="menuCard" v-show="menuShowup">
+      <div id="backMenu" @click="ocultarMenu">
+        <img src="../assets/chevronLeft.png" width="30px" height="45px" type="button" alt />  
+      </div>
+      <div id="userCard">
+        <img src="../assets/profile.png"  id="userIcon" alt /> 
+        <div id= "correoFrame"><p id="correo" >{{email}}</p></div>
+      </div>
+      <div id="infoFrame" >
+        <div v-show="!calendarShowup" ><p id="lugarTexto" >{{puntoSeleccionado.direccion}}</p></div>
+        
+        <div v-show="calendarShowup">
+          <div id="seleccionHora">
+            Seleccione la hora 
+            <select v-model="hora">
+              <option v-for="optionHoras in optionsHoras" v-bind:value="optionHoras.value" v-bind:key=optionHoras.value>
+                {{ optionHoras.text }}
+              </option>
+            </select>
+            :
+            <select v-model="minuto">
+              <option v-for="optionMinutos in optionsMinutos" v-bind:value="optionMinutos.value" v-bind:key=optionMinutos.value>
+                {{ optionMinutos.text }}
+              </option>
+            </select>
+          </div>
+          <div id ="seleccionFecha">
+            <v-date-picker  v-model="date" is-inline/></div>
+          </div>
+          
+      </div>
+      <div id="buttonFrame" >
+        <button v-show="showButtons" type="button" id="indiceButton" @click="indiceDelictivo">Indice delictivo</button>
+        <button v-show="showButtons" type="button" id="analisisButton" @click="analisisDelictivo">Análisis delictivo</button>
+        <button v-show="!showButtons" type="button" id="analisButton" @click="analisDelictivo">Lanzar análisis delictivo</button>
+      </div>
+    </div>
+    <div id="histogramaFrame" v-show="histogramaShowed">
+      <div id="maximizeIcon" type="button" @click="closeHistogram">
+        <img src="../assets/maximize.png" width="55px" height="55px" alt/> 
+      </div>
+      <div id="histogramaTitleFrame">
+        <p id="histogramaTitle">
+          Delitos de la región conforme {{opcionSelecc}}
+          </p>
+      </div>
+    
     </div>
     <div v-bind:id="['map']" v-bind:style="mapContainer">
       
@@ -45,12 +89,107 @@
 import Mapbox from "mapbox-gl";
 import {mapState} from 'vuex'; 
 var _ = require('lodash');
+import firebase from "firebase";
+
 export default {
   computed: {
     ...mapState(['puntoSeleccionado'])
   },
   data() {
     return {
+      coordenadas: [],
+      opcionSelecc: "dias de la semana",
+      hora: 0,
+      minuto: 0,
+    optionsHoras: [
+      { text: '00', value: 0 },
+      { text: '01', value: 1 },
+      { text: '02', value: 2 },
+      { text: '03', value: 3 },
+      { text: '04', value: 4 },
+      { text: '05', value: 5 },
+      { text: '06', value: 6 },
+      { text: '07', value: 7 },
+      { text: '08', value: 8 },
+      { text: '09', value: 9 },
+      { text: '10', value: 10 },
+      { text: '11', value: 11 },
+      { text: '12', value: 12 },
+      { text: '13', value: 13 },
+      { text: '14', value: 14 },
+      { text: '15', value: 15 },
+      { text: '16', value: 16 },
+      { text: '17', value: 17 },
+      { text: '18', value: 18 },
+      { text: '19', value: 19 },
+      { text: '20', value: 20 },
+      { text: '21', value: 21 },
+      { text: '22', value: 22 },
+      { text: '23', value: 23 },
+    ],
+    optionsMinutos: [
+      { text: '00', value: 0 },
+      { text: '01', value: 1 },
+      { text: '02', value: 2 },
+      { text: '03', value: 3 },
+      { text: '04', value: 4 },
+      { text: '05', value: 5 },
+      { text: '06', value: 6 },
+      { text: '07', value: 7 },
+      { text: '08', value: 8 },
+      { text: '09', value: 9 },
+      { text: '10', value: 10 },
+      { text: '11', value: 11 },
+      { text: '12', value: 12 },
+      { text: '13', value: 13 },
+      { text: '14', value: 14 },
+      { text: '15', value: 15 },
+      { text: '16', value: 16 },
+      { text: '17', value: 17 },
+      { text: '18', value: 18 },
+      { text: '19', value: 19 },
+      { text: '20', value: 20 },
+      { text: '21', value: 21 },
+      { text: '22', value: 22 },
+      { text: '23', value: 23 },
+      { text: '24', value: 24 },
+      { text: '25', value: 25 },
+      { text: '26', value: 26 },
+      { text: '27', value: 27 },
+      { text: '28', value: 28 },
+      { text: '29', value: 29 },
+      { text: '30', value: 30 },
+      { text: '31', value: 31 },
+      { text: '32', value: 32 },
+      { text: '33', value: 33 },
+      { text: '34', value: 34 },
+      { text: '35', value: 35 },
+      { text: '36', value: 36 },
+      { text: '37', value: 37 },
+      { text: '38', value: 38 },
+      { text: '39', value: 39 },
+      { text: '40', value: 40 },
+      { text: '41', value: 41 },
+      { text: '42', value: 42 },
+      { text: '43', value: 43 },
+      { text: '44', value: 44 },
+      { text: '45', value: 45 },
+      { text: '46', value: 46 },
+      { text: '47', value: 47 },
+      { text: '48', value: 48 },
+      { text: '49', value: 49 },
+      { text: '50', value: 50 },
+      { text: '51', value: 51 },
+      { text: '52', value: 52 },
+      { text: '53', value: 53 },
+      { text: '54', value: 54 },
+      { text: '55', value: 55 },
+      { text: '56', value: 56 },
+      { text: '57', value: 57 },
+      { text: '58', value: 58 },
+      { text: '59', value: 59 },
+    ],
+      date: new Date(),
       mostrarMensaje: true,
       map: null,
       radio: 0,
@@ -59,6 +198,9 @@ export default {
       center: [-99.154037, 19.501014],
       zoom: 12,
       menuShowup: false,
+      showButtons: true,
+      calendarShowup: false,
+      histogramaShowed: false,
       mapContainer:{
           position: 'absolute',
           top: '5%',
@@ -69,9 +211,9 @@ export default {
       },
       popupLugarContainer:{
         left: '42%',
-    }
-      //delimitarAreaShowup: true,
-      //mostrarAreaShowup: true
+      },
+      email: null,
+      firebaseUid: null,
     };
   },
   watch: {
@@ -85,7 +227,14 @@ export default {
     this.createMap()
   },
   created: function () {
-    this.debouncedGetAnswer = _.debounce(this.delimitarArea, 500)
+    this.debouncedGetAnswer = _.debounce(this.delimitarArea, 500);
+    var user = firebase.auth().currentUser;
+    
+    if (user != null) {
+      this.email = user.email;
+      this.firebaseUid = user.uid;
+    }
+
   },
   methods: {
     createMap: function () {
@@ -96,11 +245,13 @@ export default {
         center:  this.center,
         zoom: this.zoom
       })
-      this.map.on('moveend', () => {
+      /*this.map.on('moveend', () => {
         console.log(this.$store.state.puntoSeleccionado.showPopup)
-      })
+      })*/
       this.map.on('click', (e) => {
-        this.radio =0;
+        this.radio = 0;
+        this.calendarShowup = false;
+        this.showButtons = true;
         if (this.map.getLayer("marker")) {
           this.map.removeLayer("marker");
         }
@@ -113,11 +264,18 @@ export default {
         if (this.map.getSource("point")) {
           this.map.removeSource("point");
         }
+        if (this.map.getLayer("predictions")) {
+        this.map.removeLayer("predictions");
+        }
+        if (this.map.getSource("prediction")) {
+          this.map.removeSource("prediction");
+        }
         this.$store.commit('setPoint',{
           lat: e.lngLat.lat,
           lng: e.lngLat.lng,
           showup: true
-        })
+        });
+        this.$store.commit('setDireccion');
         this.map.addSource("point", {
           type: "geojson",
           data: {
@@ -146,9 +304,6 @@ export default {
     esconderMensaje() {
       this.mostrarMensaje = false;
     },
-    seleccionarPunto(map, e) {
-      console.log(e);
-    },
     mostrarArea(){
       console.log("Zoom al mapa");
       // Geographic coordinates of the LineString
@@ -164,11 +319,104 @@ export default {
       this.mapContainer.left = "20%";
       this.popupLugarContainer.left = "57%";
     },
+    indiceDelictivo(){
+      this.histogramaShowed = true;
+      this.menuShowup = false;
+      this.mapContainer.left = "0%";
+      this.mapContainer.width = "50%";
+      this.popupLugarContainer.left = "20%";
+      console.log("Entre al indice");
+    },
+    analisisDelictivo(){
+      this.calendarShowup = true;
+      this.showButtons = false;      
+      console.log("Entre al analisis");
+    },
+    analisDelictivo(){
+      console.log("Pos lo lanzamos");
+      if (this.map.getLayer("marker")) {
+        this.map.removeLayer("marker");
+      }
+      if (this.map.getSource("markers")) {
+        this.map.removeSource("markers");
+      }
+      if (this.map.getLayer("points")) {
+        this.map.removeLayer("points");
+      }
+      if (this.map.getSource("point")) {
+        this.map.removeSource("point");
+      }
+      if (this.map.getLayer("predictions")) {
+        this.map.removeLayer("predictions");
+      }
+      if (this.map.getSource("prediction")) {
+        this.map.removeSource("prediction");
+      }
+        this.getPredicciones();
+        this.map.addSource("prediction", {
+          type: "geojson",
+          data: {
+            'type': 'FeatureCollection',
+            'features': this.coordenadas,
+          }
+        });
+        this.map.addLayer({
+          'id': 'predictions',
+          'type': 'symbol',
+          'source': 'prediction',
+          'layout': {
+            'icon-image': "danger",
+            'icon-size': 0.5
+          }
+        });
+    },
+    getPredicciones(){
+      //Mandar consulta de predicciones a microservicioe igualar a coorde
+      var coordena=[];
+      var coorde = [
+        [this.puntoSeleccionado.lng,this.puntoSeleccionado.lat],
+        [this.puntoSeleccionado.lng+0.01,this.puntoSeleccionado.lat-0.04],
+        [this.puntoSeleccionado.lng+0.02,this.puntoSeleccionado.lat+0.03],
+        [this.puntoSeleccionado.lng+0.03,this.puntoSeleccionado.lat-0.02],
+        [this.puntoSeleccionado.lng+0.04,this.puntoSeleccionado.lat+0.01]
+      ];
+      for (var i = 0; i < Object.keys(coorde).length; i++) {
+        coordena =  coordena.concat({
+          'type': 'Feature',
+          'geometry': {
+            'type': 'Point',
+            'coordinates': [coorde[i][0],coorde[i][1]]
+          },
+        });  
+      }
+      this.coordenadas = coordena;
+    },
+    closeHistogram(){
+      this.histogramaShowed = false;
+      this.menuShowup = false;
+      this.mapContainer.left = "0%";
+      this.mapContainer.width = "100%";
+      this.popupLugarContainer.left = "42%";
+    },
     ocultarMenu(){
       this.menuShowup = false;
-      this.mapContainer.width = "100%";
+      this.calendarShowup = false;
+      this.showButtons = true;
       this.mapContainer.left = "0%";
+      this.mapContainer.width = "100%";
       this.popupLugarContainer.left = "42%";
+
+    },
+    logOut(){
+      firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+      }).catch(function(error) {
+      // An error happened.
+      console.log(error);
+      });
+      this.email = null;
+      this.firebaseUid= null;
+      this.$router.replace("/login");
     },
 
     delimitarArea() {
@@ -229,6 +477,84 @@ export default {
 #map {
   z-index: -99;
 }
+#userCard{
+  position: absolute;
+  width: 70%;
+  height: 10%;
+  left: 5%;
+  top: 7.5%;
+  background: #1a9ea6;
+}
+#seleccionHora{
+  position: absolute;
+  width: 80%;
+  height: 55%;
+  left: 10%;
+  top: 7%;
+  background: #ffffff;
+}
+#seleccionFecha{
+  position: absolute;
+  width: 80%;
+  height: 55%;
+  left: 13%;
+  top: 20%;
+  background: #ffffff;
+}
+#infoFrame{
+  position: absolute;
+  width: 80%;
+  height: 55%;
+  left: 10%;
+  top: 22%;
+  background: #ffffff;
+}
+#buttonFrame{
+  position: absolute;
+  width: 70%;
+  height: 15%;
+  left: 15%;
+  top: 81.5%;
+  background: #1a9ea6;
+}
+#histogramaFrame{
+  position: absolute;
+  width: 50%;
+  height: 95%;
+  right: 0;
+  top: 5%;
+  background: #ffffff;
+}
+#indiceButton {
+  position: absolute;
+  width: 80%;
+  height: 20%;
+  left: 10%;
+  top: 15%;
+  background: #11656a;
+  border-color: #11656a;
+  color: #ffffff;
+}
+#analisisButton {
+  position: absolute;
+  width: 80%;
+  height: 20%;
+  left: 10%;
+  top: 50%;
+  background: #11656a;
+  border-color: #11656a;
+  color: #ffffff;
+}
+#analisButton{
+  position: absolute;
+  width: 80%;
+  height: 20%;
+  left: 10%;
+  top: 35%;
+  background: #11656a;
+  border-color: #11656a;
+  color: #ffffff;
+}
 #menuCard{
   position: absolute;
   width: 20%;
@@ -241,8 +567,40 @@ export default {
   position: absolute;
   width: 3%;
   height: 3%;
-  right: 14%;
+  right: 10%;
   top: 0.7%;
+  background: #1a9ea6;
+}
+#logout {
+  position: absolute;
+  width: 3%;
+  height: 3%;
+  right: 0.5%;
+  top: 8%;
+  background: #1a9ea6;
+}
+#maximizeIcon {
+  position: absolute;
+  width: 3%;
+  height: 3%;
+  right: 5%;
+  top: 3%;
+  background: #ffffff;
+}
+#userIcon {
+  position: absolute;
+  width: 25%;
+  height: 75%;
+  left: 1%;
+  top: 10%;
+  background: #1a9ea6;
+}
+#correoFrame {
+  position: absolute;
+  width: 25%;
+  height: 80%;
+  left: 30%;
+  top: 55%;
   background: #1a9ea6;
 }
 #barraMenu{
@@ -254,7 +612,6 @@ export default {
   z-index: -99;
   background: #1a9ea6;
 }
-
 #bienvenidaFrame {
   position: absolute;
   width: 566px;
@@ -277,6 +634,28 @@ export default {
   text-align: center;
   color: #ffffff;
 }
+#histogramaTitleFrame {
+  position: absolute;
+  width: 50%;
+  height: 20%;
+  left: 25%;
+  top: 10%;
+  background: #ffff22;
+}
+#histogramaTitle{
+  position: absolute;
+  width: 80%;
+  height: 5px;
+  left: 10%;
+  top: 11%;
+  font-family: Manjari;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 25px;
+  line-height: 30px;
+  text-align: center;
+  color: #000000;
+}
 #mensajePunto {
   position: absolute;
   width: 258px;
@@ -291,6 +670,29 @@ export default {
   text-align: center;
   color: #ffffff;
 }
+#lugarTexto{
+  position: absolute;
+  width: 80%;
+  left: 10%;
+  top: 20%;
+  font-family: Manjari;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 26px;
+  text-align: center;
+  color: #000000;
+}
+#correo {
+  position: absolute;
+  font-family: Manjari;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 26px;
+  text-align: center;
+  color: #ffffff;
+}
 #entendidoButton {
   position: absolute;
   width: 130px;
@@ -301,6 +703,7 @@ export default {
   border-color: #11656a;
   color: #ffffff;
 }
+
 #popupLugar {
   position: absolute;
   width: 319px;

@@ -17,6 +17,7 @@
     "mapbox-gl": "^1.7.0",
     "mapbox-gl-draw-circle": "^1.1.1",
     "mapbox-gl-vue": "^2.0.4",
+    "v-calendar": "^1.0.1",
     "vue": "^2.6.10",
     "vue-firestore": "^0.3.30",
     "vue-mapbox-map": "^0.12.4",
@@ -30,6 +31,9 @@
     "babel-eslint": "^10.0.3",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "vue-template-compiler": "^2.6.10"
+    "node-sass": "^4.13.1",
+    "sass-loader": "^8.0.2",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.42.0"
   }
 }

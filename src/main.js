@@ -9,7 +9,12 @@ import 'firebase/firestore'
 import VueFirestore from 'vue-firestore'
 import Vuex from 'vuex'
 import store from './store'
+import VCalendar from 'v-calendar';
+//import ElementUI from 'element-ui';
+//import 'element-ui/lib/theme-chalk/index.css';
 
+//Vue.use(ElementUI);
+Vue.use(VCalendar);
 Vue.use(Vuex)
 Vue.use(VueFirestore)
 Vue.use(BootstrapVue)
