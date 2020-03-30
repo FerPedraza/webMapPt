@@ -9,16 +9,20 @@ import 'firebase/firestore'
 import VueFirestore from 'vue-firestore'
 import Vuex from 'vuex'
 import store from './store'
-import VCalendar from 'v-calendar';
-//import ElementUI from 'element-ui';
-//import 'element-ui/lib/theme-chalk/index.css';
+import VCalendar from 'v-calendar'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
 
-//Vue.use(ElementUI);
+Vue.use(Vuetify)
 Vue.use(VCalendar);
 Vue.use(Vuex)
 Vue.use(VueFirestore)
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
+
+const opts = {}
+
+export default new Vuetify(opts)
 const firebaseApp = firebase.initializeApp({
   apiKey: "AIzaSyAczRjFscIwPU3ojp0eKiYcRegvjiv9AV4",
   authDomain: "capitalrouteapp.firebaseapp.com",
@@ -30,6 +34,7 @@ const firebaseApp = firebase.initializeApp({
 });
 export const db = firebaseApp.firestore()
 new Vue({
+  vuetify: new Vuetify(),
   router,
   store,
   render: h => h(App)

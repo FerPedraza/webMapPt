@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <div id="bienvenidaFrame" v-show="mostrarMensaje">
       <h1 id="bienvenidaMessage">Bienvenido</h1>
@@ -78,18 +79,34 @@
           Delitos de la región conforme {{opcionSelecc}}
           </p>
       </div>
-    
+      <div id="histogramaCard">
+        <div id="histo">
+          <div id="plot" style="height: inherit width:inherit"/>
+        </div>
+        <v-app id="histobuttons">
+          <v-container fluid>
+            <v-row class="justify-space-between mb-6" >
+              <v-switch v-model="opcionSelecc" label="Dias" value="dias" ></v-switch>
+              <v-switch v-model="opcionSelecc" label="Meses" value="meses"></v-switch>
+              <v-switch v-model="opcionSelecc" label="Años" value="años"></v-switch>
+            </v-row>
+          </v-container>
+        </v-app>
+      </div>
     </div>
     <div v-bind:id="['map']" v-bind:style="mapContainer">
       
+      
     </div>
+    <v-btn v-show="heatMapButton.showup" id="heatMapButton" rounded color="primary"  @click="mapaCalor" dark>{{heatMapButton.msj}}</v-btn>
   </div>
 </template>
 <script>
 import Mapbox from "mapbox-gl";
 import {mapState} from 'vuex'; 
-var _ = require('lodash');
 import firebase from "firebase";
+import Plotly from 'plotly.js';
+var _ = require('lodash');
 
 export default {
   computed: {
@@ -97,8 +114,15 @@ export default {
   },
   data() {
     return {
+      heatMapButton:{
+        showup: false,
+        msj: 'Mostrar mapa de calor'
+      },
       coordenadas: [],
-      opcionSelecc: "dias de la semana",
+      dias: ['lunes','martes','miercoles','jueves','viernes','sabado','domingo'],
+      meses: ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],
+      años: ['2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020'],
+      opcionSelecc: ". . . ",
       hora: 0,
       minuto: 0,
     optionsHoras: [
@@ -207,7 +231,6 @@ export default {
           left: '0',
           height: '95%',
           width: '100%',
-          
       },
       popupLugarContainer:{
         left: '42%',
@@ -217,10 +240,12 @@ export default {
     };
   },
   watch: {
-    // whenever question changes, this function will run
-      radio: function () {
+    radio: function () {
       this.answer = 'Waiting for you to stop typing...'
       this.debouncedGetAnswer()
+    },
+    opcionSelecc:function(){
+      this.solicitudhistograma()
     }
   },
   mounted () {
@@ -315,6 +340,8 @@ export default {
     },
     desplegarMenu(){
       this.menuShowup = true;
+      this.histogramaShowed = false;
+      this.heatMapButton.showup = false;
       this.mapContainer.width = "80%";
       this.mapContainer.left = "20%";
       this.popupLugarContainer.left = "57%";
@@ -322,10 +349,197 @@ export default {
     indiceDelictivo(){
       this.histogramaShowed = true;
       this.menuShowup = false;
+      this.heatMapButton.showup = true;
       this.mapContainer.left = "0%";
       this.mapContainer.width = "50%";
       this.popupLugarContainer.left = "20%";
       console.log("Entre al indice");
+      this.solicitudhistograma()
+    },
+    solicitudhistograma(){
+      var x = [];
+      var y = [];
+      var i = 0; 
+      if(this.opcionSelecc == 'dias'){
+        x = this.dias;
+        for (i = 0; i < this.dias.length; i ++) {
+          y[i] = Math.random();
+        }
+      }
+      if(this.opcionSelecc == 'meses'){
+        x = this.meses;
+        for (i = 0; i < this.meses.length; i ++) {
+          y[i] = Math.random();
+        }
+      }
+      if(this.opcionSelecc == 'años'){
+        x = this.años;
+        for (i = 0; i < this.años.length; i ++) {
+          y[i] = Math.random();
+        }
+      }
+      var data = [
+        {
+          x: x,
+          y: y,
+          type: 'bar'
+          }
+        ];
+      var layout = {
+        autosize: false,
+        width: 860,
+        height: 520,
+      };
+      Plotly.newPlot('plot', data, layout );
+    },
+    mapaCalor(){
+      if(this.heatMapButton.msj == 'Mostrar mapa de calor'){
+      this.heatMapButton.msj = 'Ocultar mapa de calor';
+      
+      this.map.addSource('earthquakes', {
+'type': 'geojson',
+'data':
+'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson'
+});
+ 
+this.map.addLayer(
+{
+'id': 'earthquakes-heat',
+'type': 'heatmap',
+'source': 'earthquakes',
+'maxzoom': 9,
+'paint': {
+// Increase the heatmap weight based on frequency and property magnitude
+'heatmap-weight': [
+'interpolate',
+['linear'],
+['get', 'mag'],
+0,
+0,
+6,
+1
+],
+// Increase the heatmap color weight weight by zoom level
+// heatmap-intensity is a multiplier on top of heatmap-weight
+'heatmap-intensity': [
+'interpolate',
+['linear'],
+['zoom'],
+0,
+1,
+9,
+3
+],
+// Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
+// Begin color ramp at 0-stop with a 0-transparancy color
+// to create a blur-like effect.
+'heatmap-color': [
+'interpolate',
+['linear'],
+['heatmap-density'],
+0,
+'rgba(33,102,172,0)',
+0.2,
+'rgb(103,169,207)',
+0.4,
+'rgb(209,229,240)',
+0.6,
+'rgb(253,219,199)',
+0.8,
+'rgb(239,138,98)',
+1,
+'rgb(178,24,43)'
+],
+// Adjust the heatmap radius by zoom level
+'heatmap-radius': [
+'interpolate',
+['linear'],
+['zoom'],
+0,
+2,
+9,
+20
+],
+// Transition from heatmap to circle layer by zoom level
+'heatmap-opacity': [
+'interpolate',
+['linear'],
+['zoom'],
+7,
+1,
+9,
+0
+]
+}
+},
+'waterway-label'
+);
+ 
+this.map.addLayer(
+{
+'id': 'earthquakes-point',
+'type': 'circle',
+'source': 'earthquakes',
+'minzoom': 7,
+'paint': {
+// Size circle radius by earthquake magnitude and zoom level
+'circle-radius': [
+'interpolate',
+['linear'],
+['zoom'],
+7,
+['interpolate', ['linear'], ['get', 'mag'], 1, 1, 6, 4],
+16,
+['interpolate', ['linear'], ['get', 'mag'], 1, 5, 6, 50]
+],
+// Color circle by earthquake magnitude
+'circle-color': [
+'interpolate',
+['linear'],
+['get', 'mag'],
+1,
+'rgba(33,102,172,0)',
+2,
+'rgb(103,169,207)',
+3,
+'rgb(209,229,240)',
+4,
+'rgb(253,219,199)',
+5,
+'rgb(239,138,98)',
+6,
+'rgb(178,24,43)'
+],
+'circle-stroke-color': 'white',
+'circle-stroke-width': 1,
+// Transition from heatmap to circle layer by zoom level
+'circle-opacity': [
+'interpolate',
+['linear'],
+['zoom'],
+7,
+0,
+8,
+1
+]
+}
+},
+'waterway-label'
+);
+}
+else if(this.heatMapButton.msj == 'Ocultar mapa de calor'){
+  if (this.map.getLayer("earthquakes-heat")) {
+    this.map.removeLayer("earthquakes-heat");
+  }
+  if (this.map.getLayer("earthquakes-point")) {
+    this.map.removeLayer("earthquakes-point");
+  }
+  if (this.map.getSource("earthquakes")) {
+    this.map.removeSource("earthquakes");
+  }
+
+  this.heatMapButton.msj = "Mostrar mapa de calor"
+}
     },
     analisisDelictivo(){
       this.calendarShowup = true;
@@ -392,6 +606,7 @@ export default {
       this.coordenadas = coordena;
     },
     closeHistogram(){
+      this.heatMapButton.showup = false;
       this.histogramaShowed = false;
       this.menuShowup = false;
       this.mapContainer.left = "0%";
@@ -637,10 +852,10 @@ export default {
 #histogramaTitleFrame {
   position: absolute;
   width: 50%;
-  height: 20%;
+  height: 10%;
   left: 25%;
-  top: 10%;
-  background: #ffff22;
+  top: 8%;
+  background: #1a9ea6;
 }
 #histogramaTitle{
   position: absolute;
@@ -654,7 +869,7 @@ export default {
   font-size: 25px;
   line-height: 30px;
   text-align: center;
-  color: #000000;
+  color: #ffffff;
 }
 #mensajePunto {
   position: absolute;
@@ -727,6 +942,36 @@ export default {
   height: 3%;
   left: 0.5%;
   top: 8%;
+  background: #1a9ea6;
+}
+#histogramaCard{
+  position: absolute;
+  width: 100%;
+  height: 80%;
+  left: 0%;
+  top: 17%;
+  background: #ffffff;
+}
+#histo{
+  position: absolute;
+  width: 90%;
+  height: 70%;
+  left: 5%;
+  top: 5%;
+  background: #ffffff;
+}
+#histobuttons{
+  position: absolute;
+  width: 60%;
+  height: 20%;
+  left: 20%;
+  top: 75%;
+  background: #ffffff;
+}
+#heatMapButton{
+  position: absolute;
+  left: 37%;
+  bottom: 5%;
   background: #1a9ea6;
 }
 </style>
