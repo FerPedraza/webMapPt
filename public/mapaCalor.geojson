@@ -1,0 +1,2738 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13635, 
+          19.53127
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 105, 
+        "delitos": 15
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13708, 
+          19.53116
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 105, 
+        "delitos": 15
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13674, 
+          19.53006
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 105, 
+        "delitos": 15
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13689, 
+          19.53115
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 105, 
+        "delitos": 15
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13658, 
+          19.53009
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 105, 
+        "delitos": 15
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13706, 
+          19.53112
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 105, 
+        "delitos": 15
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13685, 
+          19.53061
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 105, 
+        "delitos": 15
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13732, 
+          19.53116
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 105, 
+        "delitos": 15
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13707, 
+          19.5311
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 105, 
+        "delitos": 15
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13707, 
+          19.53122
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 105, 
+        "delitos": 15
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13694, 
+          19.53113
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 105, 
+        "delitos": 15
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13772, 
+          19.53116
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 105, 
+        "delitos": 15
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14002, 
+          19.53141
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 106, 
+        "delitos": 25
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13982, 
+          19.53086
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 106, 
+        "delitos": 25
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14015, 
+          19.5314
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 106, 
+        "delitos": 25
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13946, 
+          19.53096
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 106, 
+        "delitos": 25
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13836, 
+          19.53109
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 106, 
+        "delitos": 25
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13895, 
+          19.53056
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 106, 
+        "delitos": 25
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13868, 
+          19.53111
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 106, 
+        "delitos": 25
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13897, 
+          19.53052
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 106, 
+        "delitos": 25
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13888, 
+          19.53055
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 106, 
+        "delitos": 25
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14076, 
+          19.53117
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 106, 
+        "delitos": 25
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14052, 
+          19.53126
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 106, 
+        "delitos": 25
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14084, 
+          19.5311
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 106, 
+        "delitos": 25
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14117, 
+          19.53123
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 106, 
+        "delitos": 25
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13928, 
+          19.53595
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13928, 
+          19.53595
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13909, 
+          19.53592
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13968, 
+          19.5359
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13959, 
+          19.53593
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14003, 
+          19.53539
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14006, 
+          19.53539
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13949, 
+          19.53319
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13992, 
+          19.53325
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13993, 
+          19.53324
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14013, 
+          19.53329
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14019, 
+          19.53329
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13971, 
+          19.53319
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.1391, 
+          19.53535
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14017, 
+          19.53446
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13975, 
+          19.53488
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13951, 
+          19.53536
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14173, 
+          19.53433
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.1417, 
+          19.53358
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14079, 
+          19.5342
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14074, 
+          19.53232
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14084, 
+          19.53359
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14082, 
+          19.53373
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14079, 
+          19.53438
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14073, 
+          19.53234
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14055, 
+          19.53337
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14085, 
+          19.53362
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14063, 
+          19.5323
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14068, 
+          19.53233
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14044, 
+          19.53457
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14053, 
+          19.53338
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14143, 
+          19.53355
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14024, 
+          19.53224
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14042, 
+          19.53229
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14198, 
+          19.53357
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14092, 
+          19.53236
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14135, 
+          19.53278
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14134, 
+          19.53354
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14212, 
+          19.53215
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14216, 
+          19.53215
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14214, 
+          19.53183
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14217, 
+          19.53279
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14216, 
+          19.53358
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14214, 
+          19.53363
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14215, 
+          19.53292
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14178, 
+          19.53358
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14169, 
+          19.53276
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14179, 
+          19.5336
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14176, 
+          19.53374
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14175, 
+          19.53356
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14178, 
+          19.5324
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14176, 
+          19.53213
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14181, 
+          19.53337
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14178, 
+          19.5324
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14181, 
+          19.53339
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14181, 
+          19.53343
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14178, 
+          19.53232
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14096, 
+          19.53227
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14248, 
+          19.53447
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14222, 
+          19.53439
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14215, 
+          19.53439
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14245, 
+          19.53446
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 109, 
+        "delitos": 62
+      }
+    },
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13865, 
+          19.54424
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 111, 
+        "delitos": 16
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13868, 
+          19.5442
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 111, 
+        "delitos": 16
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13866, 
+          19.54425
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 111, 
+        "delitos": 16
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13873, 
+          19.54425
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 111, 
+        "delitos": 16
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13875, 
+          19.54418
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 111, 
+        "delitos": 16
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13874, 
+          19.54426
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 111, 
+        "delitos": 16
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13865, 
+          19.54443
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 111, 
+        "delitos": 16
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13869, 
+          19.5442
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 111, 
+        "delitos": 16
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13865, 
+          19.54427
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 111, 
+        "delitos": 16
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13884, 
+          19.54428
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 111, 
+        "delitos": 16
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13872, 
+          19.54411
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 111, 
+        "delitos": 16
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13843, 
+          19.54487
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 111, 
+        "delitos": 16
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13855, 
+          19.54453
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 111, 
+        "delitos": 16
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13846, 
+          19.54477
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 111, 
+        "delitos": 16
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13838, 
+          19.54496
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 111, 
+        "delitos": 16
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13846, 
+          19.54493
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 111, 
+        "delitos": 16
+      }
+    },
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14331, 
+          19.55253
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14331, 
+          19.55253
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14363, 
+          19.55216
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14363, 
+          19.55216
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14323, 
+          19.55218
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14322, 
+          19.5522
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14343, 
+          19.55236
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14082, 
+          19.55236
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14271, 
+          19.55109
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14154, 
+          19.55189
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14113, 
+          19.55209
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14216, 
+          19.55154
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14215, 
+          19.55155
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.1428, 
+          19.55187
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.1428, 
+          19.55187
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14265, 
+          19.55175
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14221, 
+          19.55147
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14236, 
+          19.55142
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14233, 
+          19.55236
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14229, 
+          19.55237
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14232, 
+          19.55236
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14241, 
+          19.5523
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14261, 
+          19.55207
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14208, 
+          19.55254
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14171, 
+          19.55247
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14184, 
+          19.55114
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 112, 
+        "delitos": 26
+      }
+    },
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13718, 
+          19.55803
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.1372, 
+          19.55786
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13716, 
+          19.55802
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13702, 
+          19.55816
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13844, 
+          19.55833
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13826, 
+          19.55748
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.1385, 
+          19.55819
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13848, 
+          19.55824
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.1385, 
+          19.55833
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13816, 
+          19.5568
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13841, 
+          19.55688
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.1383, 
+          19.55769
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13856, 
+          19.55808
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13766, 
+          19.55699
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13793, 
+          19.55812
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13921, 
+          19.55748
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13938, 
+          19.55684
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13935, 
+          19.55762
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13903, 
+          19.55709
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13933, 
+          19.55718
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13939, 
+          19.55762
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13905, 
+          19.55711
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13941, 
+          19.55763
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13914, 
+          19.55712
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13904, 
+          19.55711
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13894, 
+          19.55705
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13867, 
+          19.55785
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13877, 
+          19.55763
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13877, 
+          19.55763
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.1386, 
+          19.5584
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13757, 
+          19.55864
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13735, 
+          19.55729
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14125, 
+          19.55644
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14127, 
+          19.55609
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14155, 
+          19.5561
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14119, 
+          19.55602
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14114, 
+          19.55662
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13701, 
+          19.55834
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13984, 
+          19.55758
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13964, 
+          19.55765
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13982, 
+          19.55769
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13946, 
+          19.55719
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.1398, 
+          19.55782
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13984, 
+          19.55752
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13984, 
+          19.55752
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13992, 
+          19.55715
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.1409, 
+          19.55646
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14043, 
+          19.55692
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14045, 
+          19.55757
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14061, 
+          19.557
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13789, 
+          19.5567
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13794, 
+          19.55671
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13792, 
+          19.55669
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.13786, 
+          19.55665
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14054, 
+          19.55633
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14093, 
+          19.55588
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14057, 
+          19.55599
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14078, 
+          19.55576
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 113, 
+        "delitos": 58
+      }
+    },
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14325, 
+          19.54511
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 96, 
+        "delitos": 19
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14334, 
+          19.54544
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 96, 
+        "delitos": 19
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14395, 
+          19.54506
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 96, 
+        "delitos": 19
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14283, 
+          19.54537
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 96, 
+        "delitos": 19
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14395, 
+          19.54503
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 96, 
+        "delitos": 19
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14377, 
+          19.54491
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 96, 
+        "delitos": 19
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14212, 
+          19.54447
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 96, 
+        "delitos": 19
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14224, 
+          19.54482
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 96, 
+        "delitos": 19
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14196, 
+          19.54446
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 96, 
+        "delitos": 19
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14267, 
+          19.54479
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 96, 
+        "delitos": 19
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14275, 
+          19.54428
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 96, 
+        "delitos": 19
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14209, 
+          19.54444
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 96, 
+        "delitos": 19
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14225, 
+          19.54478
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 96, 
+        "delitos": 19
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14183, 
+          19.54479
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 96, 
+        "delitos": 19
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14181, 
+          19.54502
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 96, 
+        "delitos": 19
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.1416, 
+          19.54406
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 96, 
+        "delitos": 19
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14209, 
+          19.54415
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 96, 
+        "delitos": 19
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14217, 
+          19.54405
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 96, 
+        "delitos": 19
+      }
+    }, 
+    {"type": "Feature",
+      "geometry": {
+        "coordinates": [
+          -99.14137, 
+          19.54444
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "cluster": 96, 
+        "delitos": 19
+      }
+    }
+  ]
+}

@@ -8,8 +8,8 @@ export default new Vuex.Store({
     state: {
         puntoSeleccionado: {
             showPopup: false,
-            lat: "",
-            lng: "",
+            lat: '',
+            lng: '',
             direccion: "",
         },
         delimitarAreaShowup: true,
