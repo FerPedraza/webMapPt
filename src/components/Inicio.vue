@@ -277,6 +277,7 @@ export default {
   },
   mounted () {
     this.createMap()
+    this.map.doubleClickZoom.disable()
   },
   created: function () {
     this.debouncedGetAnswer = _.debounce(this.delimitarArea, 500);
@@ -300,7 +301,7 @@ export default {
       /*this.map.on('moveend', () => {
         console.log(this.$store.state.puntoSeleccionado.showPopup)
       })*/
-      this.map.on('click', (e) => {
+      this.map.on('dblclick', (e) => {
         this.radio = 0;
         this.calendarShowup = false;
         this.showButtons = true;
@@ -647,7 +648,34 @@ export default {
         this.map.removeSource("prediction");
       }
         this.getPredicciones();
-        this.map.addSource("prediction", {
+        
+        
+    },
+    getPredicciones(){
+      //http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7300/?radio=1500&lat=19.51197&long=-99.12691&fechaInicial=2020-03-10%2000:00&fechaFinal=2020-03-11%2023:59
+      console.log(this.date);
+      let url = 'http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7300/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&fechaInicial='+'2020-03-10'+'%2000:00&fechaFinal='+'2020-03-11'+'%2023:59';
+      //var url = 'http://localhost:8080/responsePredicciones.json'
+      console.log(url)
+      axios.get(url,{ crossdomain: true })
+        .then(response => {
+          var coorde = response.data;
+          console.log(coorde.preds[1].coordenadas[1])
+          var coordena=[];
+      for (var i = 0; i < Object.keys(coorde.preds).length; i++) {
+        coordena =  coordena.concat({
+          'type': 'Feature',
+          'geometry': {
+            'type': 'Point',
+            'coordinates': [coorde.preds[i].coordenadas[1],coorde.preds[i].coordenadas[0]]
+          },
+          'properties': {
+            'fecha': coorde.preds[i].fecha
+          },
+        });  
+      }
+      this.coordenadas = coordena;
+      this.map.addSource("prediction", {
           type: "geojson",
           data: {
             'type': 'FeatureCollection',
@@ -663,52 +691,36 @@ export default {
             'icon-size': 0.5
           }
         });
-        console.log(this.getJsonCircle());
-        //new_latitude  = latitude  + (dy / r_earth) * (180 / pi);
-        //new_longitude = longitude + (dx / r_earth) * (180 / pi) / cos(latitude * pi/180);
-    },
-    getJsonCircle(){
-      var dataCircle = {
-        centro: [],
-        norte: [],
-        este: [],
-        sur: [],
-        oeste:[]
-      }
-      var r_earth = 6378; 
-      dataCircle.centro[0] = this.puntoSeleccionado.lat;
-      dataCircle.centro[1] = this.puntoSeleccionado.lng;
-      dataCircle.norte[0] = this.puntoSeleccionado.lat + (this.radio / r_earth) * (180 / Math.PI);
-      dataCircle.norte[1] = this.puntoSeleccionado.lng;
-      dataCircle.este[0] = this.puntoSeleccionado.lat;
-      dataCircle.este[1] = this.puntoSeleccionado.lng + ((this.radio / r_earth) * (180 / Math.PI) / Math.cos(this.puntoSeleccionado.lat * Math.PI/180));
-      dataCircle.sur[0] = this.puntoSeleccionado.lat - (this.radio / r_earth) * (180 / Math.PI);
-      dataCircle.sur[1] = this.puntoSeleccionado.lng;
-      dataCircle.oeste[0] = this.puntoSeleccionado.lat;
-      dataCircle.oeste[1] = this.puntoSeleccionado.lng - ((this.radio / r_earth) * (180 / Math.PI) / Math.cos(this.puntoSeleccionado.lat * Math.PI/180));
-
-      return dataCircle;
-      },
-    getPredicciones(){
-      //Mandar consulta de predicciones a microservicioe igualar a coorde
-      var coordena=[];
-      var coorde = [
-        [this.puntoSeleccionado.lng,this.puntoSeleccionado.lat],
-        [this.puntoSeleccionado.lng+0.01,this.puntoSeleccionado.lat-0.04],
-        [this.puntoSeleccionado.lng+0.02,this.puntoSeleccionado.lat+0.03],
-        [this.puntoSeleccionado.lng+0.03,this.puntoSeleccionado.lat-0.02],
-        [this.puntoSeleccionado.lng+0.04,this.puntoSeleccionado.lat+0.01]
-      ];
-      for (var i = 0; i < Object.keys(coorde).length; i++) {
-        coordena =  coordena.concat({
-          'type': 'Feature',
-          'geometry': {
-            'type': 'Point',
-            'coordinates': [coorde[i][0],coorde[i][1]]
-          },
-        });  
-      }
-      this.coordenadas = coordena;
+        this.map.on('click', 'predictions', (e) => {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var fecha = e.features[0].properties.fecha;
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+          console.log(fecha);
+        new Mapbox.Popup()
+          .setLngLat(coordinates)
+          .setHTML(fecha)
+          .addTo(this.map);
+          });
+          
+          // Change the cursor to a pointer when the mouse is over the places layer.
+          this.map.on('mouseenter', 'predictions', () => {
+            this.map.getCanvas().style.cursor = 'pointer';
+          });
+          
+          // Change it back to a pointer when it leaves.
+          this.map.on('mouseleave', 'predictions', () => {
+            this.map.getCanvas().style.cursor = '';
+          });
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      
     },
     maximizeHistograma(){
       this.histogramaShowed = false;
