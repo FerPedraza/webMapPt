@@ -508,12 +508,12 @@ export default {
       if (this.map.getSource("point")) {
         this.map.removeSource("point");
       }
-        //let url = 'http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7400/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&opcion=mapaCalor';
+        let url = 'http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7400/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&opcion=mapaCalor';
         console.log('http://localhost:8080/yh.json');
         this.heatMapButton.msj = 'Ocultar mapa de calor';
         this.map.addSource('trees', {
           type: 'geojson',
-          data: 'http://localhost:8080/yh.json',
+          data: url,
         });
         this.map.addLayer({
           id: 'trees-heat',
