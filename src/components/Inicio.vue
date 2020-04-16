@@ -1,106 +1,107 @@
 <template>
-
   <div>
-    <div id="bienvenidaFrame" v-show="mostrarMensaje">
-      <h1 id="bienvenidaMessage">Bienvenido</h1>
-      <p id="mensajePunto">
-        Selecciona un punto en
-        el mapa para comenzar
-      </p>
-      <button type="button" id="entendidoButton" @click="esconderMensaje">Entendido</button>
-    </div>
-    <div v-bind:id="['popupLugar']" v-bind:style="popupLugarContainer" v-show="puntoSeleccionado.showPopup" >
-      <p>{{puntoSeleccionado.direccion}}</p> 
-      <p>{{puntoSeleccionado.lat}},{{puntoSeleccionado.lng}}</p>
-      <b-container fluid class="seleccionarRadio">
-        <b-row class="my-1">
-          <b-col sm="8">
-            <b-form-input id="ingresarRadio" v-model="radio" @click="delimitarArea"></b-form-input>
-            <label for="ingresarRadio">Ingresar Radio en km</label>
-            <!--<button v-show="delimitarAreaShowup" type="button" id="delimitarButton" @click="delimitarArea">Determinar</button>-->
-            <button  type="button" id="delimitarButton" @click="mostrarArea">Mostrar</button>
-          </b-col>
-        </b-row>
-      </b-container>
-    </div>
-    <div id="barraMenu">
-      <div id="menu" type="button" @click="desplegarMenu">
-          <img src="../assets/menu.png" width="37px" height="40px" alt />
+    
+    <div>
+      <div id="bienvenidaFrame" v-show="mostrarMensaje">
+        <h1 id="bienvenidaMessage">Bienvenido</h1>
+        <p id="mensajePunto">
+          Selecciona un punto en
+          el mapa para comenzar
+        </p>
+        <button type="button" id="entendidoButton" @click="esconderMensaje">Entendido</button>
+      </div>
+      <div v-bind:id="['popupLugar']" v-bind:style="popupLugarContainer" v-show="puntoSeleccionado.showPopup" >
+        <p>{{puntoSeleccionado.direccion}}</p> 
+        <p>{{puntoSeleccionado.lat}},{{puntoSeleccionado.lng}}</p>
+        <b-container fluid class="seleccionarRadio">
+          <b-row class="my-1">
+            <b-col sm="8">
+              <b-form-input id="ingresarRadio" v-model="radio" @click="delimitarArea"></b-form-input>
+              <label for="ingresarRadio">Ingresar Radio en km</label>
+              <!--<button v-show="delimitarAreaShowup" type="button" id="delimitarButton" @click="delimitarArea">Determinar</button>-->
+              <button  type="button" id="delimitarButton" @click="mostrarArea">Mostrar</button>
+            </b-col>
+          </b-row>
+        </b-container>
+      </div>
+      <div id="barraMenu">
+        <div id="menu" type="button" @click="desplegarMenu">
+            <img src="../assets/menu.png" width="37px" height="40px" alt />
+            
+        </div>
+        <div id="logout" type="button" @click="logOut">
+            <img src="../assets/logoutIcon.png" width="37px" height="40px" alt />
+            
+        </div>
+      </div>
+      <div id="menuCard" v-show="menuShowup">
+        <div id="backMenu" @click="ocultarMenu">
+          <img src="../assets/chevronLeft.png" width="30px" height="45px" type="button" alt />  
+        </div>
+        <div id="userCard">
+          <img src="../assets/profile.png"  id="userIcon" alt /> 
+          <div id= "correoFrame"><p id="correo" >{{email}}</p></div>
+        </div>
+        <div id="infoFrame" >
+          <div v-show="!calendarShowup" ><p id="lugarTexto" >{{puntoSeleccionado.direccion}}</p></div>
           
+          <div v-show="calendarShowup">
+            <div id="seleccionHora">
+              Seleccione la hora 
+              <select v-model="hora">
+                <option v-for="optionHoras in optionsHoras" v-bind:value="optionHoras.value" v-bind:key=optionHoras.value>
+                  {{ optionHoras.text }}
+                </option>
+              </select>
+              :
+              <select v-model="minuto">
+                <option v-for="optionMinutos in optionsMinutos" v-bind:value="optionMinutos.value" v-bind:key=optionMinutos.value>
+                  {{ optionMinutos.text }}
+                </option>
+              </select>
+            </div>
+            <div id ="seleccionFecha">
+              <v-date-picker  v-model="date" is-inline/></div>
+            </div>
+            
+        </div>
       </div>
-      <div id="logout" type="button" @click="logOut">
-          <img src="../assets/logoutIcon.png" width="37px" height="40px" alt />
-          
-      </div>
-    </div>
-    <div id="menuCard" v-show="menuShowup">
-      <div id="backMenu" @click="ocultarMenu">
-        <img src="../assets/chevronLeft.png" width="30px" height="45px" type="button" alt />  
-      </div>
-      <div id="userCard">
-        <img src="../assets/profile.png"  id="userIcon" alt /> 
-        <div id= "correoFrame"><p id="correo" >{{email}}</p></div>
-      </div>
-      <div id="infoFrame" >
-        <div v-show="!calendarShowup" ><p id="lugarTexto" >{{puntoSeleccionado.direccion}}</p></div>
-        
-        <div v-show="calendarShowup">
-          <div id="seleccionHora">
-            Seleccione la hora 
-            <select v-model="hora">
-              <option v-for="optionHoras in optionsHoras" v-bind:value="optionHoras.value" v-bind:key=optionHoras.value>
-                {{ optionHoras.text }}
-              </option>
-            </select>
-            :
-            <select v-model="minuto">
-              <option v-for="optionMinutos in optionsMinutos" v-bind:value="optionMinutos.value" v-bind:key=optionMinutos.value>
-                {{ optionMinutos.text }}
-              </option>
-            </select>
+      <div v-bind:id="['histogramaFrame']" v-bind:style="histoCont" v-show="histogramaShowed">
+        <div id="maximizeIcon" type="button" @click="ampliarHistograma">
+          <img src="../assets/expand.png" width="55px" height="55px" alt/> 
+        </div>
+        <div id="histogramaTitleFrame">
+          <p id="histogramaTitle">
+            Delitos de la región conforme {{opcionSelecc}}
+            </p>
+        </div>
+        <div id="histogramaCard">
+          <div id="histo">
+            <div id="plot" />
           </div>
-          <div id ="seleccionFecha">
-            <v-date-picker  v-model="date" is-inline/></div>
-          </div>
-          
+          <v-app id="histobuttons">
+            <v-container fluid>
+              <v-row class="justify-space-between mb-6" >
+                <v-switch v-model="opcionSelecc" label="Dias" value="dias" ></v-switch>
+                <v-switch v-model="opcionSelecc" label="Meses" value="meses"></v-switch>
+                <v-switch v-model="opcionSelecc" label="Años" value="años"></v-switch>
+              </v-row>
+            </v-container>
+          </v-app>
+        </div>
       </div>
       <div id="buttonFrame" >
-        <button v-show="showButtons" type="button" id="indiceButton" @click="indiceDelictivo">Indice delictivo</button>
-        <button v-show="showButtons" type="button" id="analisisButton" @click="analisisDelictivo">Análisis delictivo</button>
-        <button v-show="!showButtons" type="button" id="analisButton" @click="analisDelictivo">Lanzar análisis delictivo</button>
+        <v-btn v-show="showButtons" type="button" id="indiceButton" rounded color="primary" @click="indiceDelictivo">Indice delictivo</v-btn>
+        <v-btn v-show="showButtons" type="button" id="analisisButton" rounded color="primary" @click="analisisDelictivo">Análisis delictivo</v-btn>
+        <v-btn v-show="!showButtons" type="button" id="analisButton" rounded color="primary" @click="analisDelictivo">Lanzar análisis delictivo</v-btn>
       </div>
-    </div>
-    <div v-bind:id="['histogramaFrame']" v-bind:style="histoCont" v-show="histogramaShowed">
-      <div id="maximizeIcon" type="button" @click="ampliarHistograma">
-        <img src="../assets/expand.png" width="55px" height="55px" alt/> 
-      </div>
-      <div id="histogramaTitleFrame">
-        <p id="histogramaTitle">
-          Delitos de la región conforme {{opcionSelecc}}
-          </p>
-      </div>
-      <div id="histogramaCard">
-        <div id="histo">
-          <div id="plot" />
-        </div>
-        <v-app id="histobuttons">
-          <v-container fluid>
-            <v-row class="justify-space-between mb-6" >
-              <v-switch v-model="opcionSelecc" label="Dias" value="dias" ></v-switch>
-              <v-switch v-model="opcionSelecc" label="Meses" value="meses"></v-switch>
-              <v-switch v-model="opcionSelecc" label="Años" value="años"></v-switch>
-            </v-row>
-          </v-container>
-        </v-app>
-      </div>
+      <v-btn v-show="heatMapButton.showup" v-bind:id="['heatMapButtonStyle']" v-bind:style="buttonMapaCalor" rounded color="primary"  @click="mapaCalor" dark>{{heatMapButton.msj}}</v-btn>
+      <img v-show="heatMapButton.showup" v-bind:id="['maximizeHisto']" v-bind:style="buttonHistoExpand" type="button" @click="maximizeHistograma" src="../assets/expand.png" width="55px" height="55px" alt/> 
     </div>
     <div v-bind:id="['map']" v-bind:style="mapContainer">
       
       
     </div>
-    <v-btn v-show="heatMapButton.showup" v-bind:id="['heatMapButtonStyle']" v-bind:style="buttonMapaCalor" rounded color="primary"  @click="mapaCalor" dark>{{heatMapButton.msj}}</v-btn>
-    <img v-show="heatMapButton.showup" v-bind:id="['maximizeHisto']" v-bind:style="buttonHistoExpand" type="button" @click="maximizeHistograma" src="../assets/expand.png" width="55px" height="55px" alt/> 
-    
   </div>
 </template>
 <script>
@@ -858,11 +859,10 @@ export default {
 }
 #buttonFrame{
   position: absolute;
-  width: 70%;
+  width: 20%;
   height: 15%;
-  left: 15%;
-  top: 81.5%;
-  background: #1a9ea6;
+  left: 0-5%;
+  top: 85%;
 }
 #histogramaFrame{
   background: #ffffff;
@@ -870,31 +870,31 @@ export default {
 #indiceButton {
   position: absolute;
   width: 80%;
-  height: 20%;
+  height: 30%;
   left: 10%;
   top: 15%;
-  background: #11656a;
-  border-color: #11656a;
+  background: #1a9ea6;
+  border-color: #1a9ea6;
   color: #ffffff;
 }
 #analisisButton {
   position: absolute;
   width: 80%;
-  height: 20%;
+  height: 30%;
   left: 10%;
   top: 50%;
-  background: #11656a;
-  border-color: #11656a;
+  background: #1a9ea6;
+  border-color: #1a9ea6;
   color: #ffffff;
 }
 #analisButton{
   position: absolute;
   width: 80%;
-  height: 20%;
+  height: 30%;
   left: 10%;
   top: 35%;
-  background: #11656a;
-  border-color: #11656a;
+  background: #1a9ea6;
+  border-color: #1a9ea6;
   color: #ffffff;
 }
 #menuCard{

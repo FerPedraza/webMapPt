@@ -1,4 +1,5 @@
 <template>
+<v-app>
   <div class="loginWrapper">
     <div class="top"></div>
     <div class="loginCard">
@@ -6,20 +7,28 @@
         <img src="../assets/logo.png" alt />
       </div>
       <div class="textInput">
-        <div id="userInput">
-          <img src="../assets/user.png" alt />
-          <input type="text" placeholder="Usuario" v-model="usuario" />
-        </div>
-        <div id="passwordInput">
-          <img src="../assets/lock.png" alt />
-          <input type="password" placeholder="Contraseña" v-model="password" />
-        </div>
+        <v-row id="userInput" no-gutters>
+          <v-col cols="auto" sm="3">
+            <img src="../assets/user.png" alt />
+          </v-col >
+          <v-col cols="auto" sm="8">
+            <v-text-field v-model="usuario" label="Usuario"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row  id="passwordInput" no-gutters>
+          <v-col cols="auto" sm="3">
+            <img src="../assets/lock.png" alt />
+          </v-col>
+          <v-col cols="auto" sm="8">  
+            <v-text-field type="password" label="Contraseña" v-model="password" />
+          </v-col>  
+        </v-row>
       </div>
       <div id="googleLogin"  @click="loginGoogle">
         <img type="button" src="../assets/google-icon.png" alt />
       </div>
       <div id="loginButtonWrapper">
-        <button id="loginButton" @click="login">LOGIN</button>
+        <v-btn id="loginButton" @click="login">LOGIN</v-btn>
       </div>
       <div id="extraText">
         <a href id="olvidarPassword" @click="olvidarPasswd">¿Olvidaste tu Contraseña?</a>
@@ -28,6 +37,7 @@
     </div>
     <div class="bottom"></div>
   </div>
+</v-app>
 </template>
 <script>
 import firebase from "firebase";
@@ -91,17 +101,23 @@ export default {
 }
 .loginCard {
   position: absolute;
-  top: 20%;
-  transform: translateX(70%);
-  width: 42%;
-  height: 60%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 40vw;
+  height: 60vh;
 }
 #logo {
   position: relative;
-  top: 5%;
+  left: 50%;
+  top: 15%;
+  transform: translate(-50%, -50%);
+  width: 17vh;
+  height: 17vh;
 }
 #logo img {
-  height: 130px;
+  width: 100%;
+  height: 100%;
 }
 .textInput {
   position: relative;
@@ -110,21 +126,37 @@ export default {
   left: 0%;
 }
 .textInput img {
-  margin-right: 1%;
+  
+  width: 5vh;
+  height: 5vh;
+  margin-right: 5%;
+  margin-top: 5%;
 }
 #passwordInput {
-  margin: 0.5%;
+  
+  position: relative;
+  left: 50%;
+  top: 20%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  margin: 1%;
 }
 #userInput {
-  margin: 0.5%;
+  
+  position: relative;
+  left: 50%;
+  top: 20%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  margin: 1%;
 }
 #googleLogin {
   position: relative;
-  top: 10%;
+  top: 3%;
 }
 #loginButtonWrapper {
   position: relative;
-  top: 15%;
+  top: 10%;
 }
 #loginButton {
   background-color: #1a9ea6;
@@ -133,7 +165,7 @@ export default {
 }
 #extraText {
   position: relative;
-  bottom: -15%;
+  bottom: -10vh;
 }
 #olvidarPassword {
   float: left;
@@ -149,7 +181,7 @@ export default {
   position: absolute;
   background-color: #1a9ea6;
   width: 100%;
-  height: 12%;
+  height: 12vh;
   left: 0px;
   top: 0px;
 }
@@ -157,7 +189,7 @@ export default {
   position: absolute;
   background-color: #1a9ea6;
   width: 100%;
-  height: 13%;
+  height: 13vh;
   left: 0px;
   bottom: 0px;
 }
