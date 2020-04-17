@@ -42,16 +42,15 @@
       </div>
     </div>
     <div class="bottom"></div>
-    
-    <v-dialog v-model="errorCard" persistent max-width="290">
-    <v-card v-show="errorCard" persistent  max-width="290" justify="center">
-            <v-card-title class="headline">{{tituloSolicitud}}</v-card-title>
-            <v-card-text>{{mensajeSolicitud}}</v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="#1a9ea6" text @click="redirecciona">{{entendidoButton}}</v-btn>
-            </v-card-actions>
-          </v-card>
+    <v-dialog v-model="errorCard" persistent max-width="290" justify="center">
+      <v-card>
+        <v-card-title class="headline">{{tituloSolicitud}}</v-card-title>
+        <v-card-text>{{mensajeSolicitud}}</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="#1a9ea6" text @click="redirecciona">{{entendidoButton}}</v-btn>
+        </v-card-actions>
+      </v-card>
     </v-dialog>
   </div>
   </v-app>
@@ -98,13 +97,12 @@ export default {
       this.errorCard = false;
     },
     crearCuenta(){    
-      firebase.auth().createUserWithEmailAndPassword(this.correo, this.password).then(  (result) => {
-        console.log(result)
+      firebase.auth().createUserWithEmailAndPassword(this.correo, this.password).then(() => {
         this.tituloSolicitud = 'Genial!';
         this.mensajeSolicitud = 'Tu cuenta ha sido creada con éxito';
         this.entendidoButton = 'De acuerdo';
         this.errorCard = true;
-      }).catch(  (error) => {
+      }).catch((error) => {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -169,7 +167,7 @@ export default {
 #textoFields{
   position: relative;
   left: 50%;
-  top: 42%;
+  top: 38%;
   transform: translate(-50%, -50%);
   width: 30vw;
   height: 50vh;
@@ -185,7 +183,7 @@ export default {
 }
 #buttonWrapper {
   position: relative;
-  top: -2vh;
+  top: -3vh;
 }
 
 .top {

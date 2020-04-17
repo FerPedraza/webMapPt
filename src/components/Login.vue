@@ -110,10 +110,10 @@ export default {
 #logo {
   position: relative;
   left: 50%;
-  top: 15%;
+  top: 12%;
   transform: translate(-50%, -50%);
-  width: 17vh;
-  height: 17vh;
+  width: 15vh;
+  height: 15vh;
 }
 #logo img {
   width: 100%;
