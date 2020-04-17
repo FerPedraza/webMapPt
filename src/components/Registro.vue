@@ -1,4 +1,5 @@
 <template>
+<v-app>
   <div class="registroWrapper">
     <div class="top"></div>
     <div class="registroCard">
@@ -41,14 +42,30 @@
       </div>
     </div>
     <div class="bottom"></div>
+    
+    <v-dialog v-model="errorCard" persistent max-width="290">
+    <v-card v-show="errorCard" persistent  max-width="290" justify="center">
+            <v-card-title class="headline">{{tituloSolicitud}}</v-card-title>
+            <v-card-text>{{mensajeSolicitud}}</v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="#1a9ea6" text @click="redirecciona">{{entendidoButton}}</v-btn>
+            </v-card-actions>
+          </v-card>
+    </v-dialog>
   </div>
+  </v-app>
 </template>
 <script>
 //import { functions } from "firebase";
-//import firebase from 'firebase';
+import firebase from 'firebase';
 export default {
   data() {
     return {
+        entendidoButton: "Entendido",
+        tituloSolicitud: "",
+        mensajeSolicitud: "",
+        errorCard: false,
         valid: false,
         correo : "",
         confirmacionCorreo : "",
@@ -63,8 +80,8 @@ export default {
           () => (this.correo === this.confirmacionCorreo) || 'El correo debe coincidir',
         ],
         passwordRules: [
-          v => !!v || 'La contraseña debe tener al menos una minuscula, una mayuscula y un número',
-          v => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])+/.test(v) || 'Contraseña no válida',
+          v => !!v || 'La contraseña debe tener al menos una minuscula, una mayuscula, un número y tener al menos 6 caracteres',
+          v => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])+.{6,}$/.test(v) || 'Contraseña no válida',
         ],
         passwordMatch: [
           v => !!v || 'Se requiere confirmar la contraseña',
@@ -74,9 +91,45 @@ export default {
     };
   },
   methods:{
-    crearCuenta(){
-      console.log(this.valid);    }
-
+    redirecciona(){
+      if(this.entendidoButton == 'De acuerdo'){
+        this.$router.replace("/login");
+      }
+      this.errorCard = false;
+    },
+    crearCuenta(){    
+      firebase.auth().createUserWithEmailAndPassword(this.correo, this.password).then(  (result) => {
+        console.log(result)
+        this.tituloSolicitud = 'Genial!';
+        this.mensajeSolicitud = 'Tu cuenta ha sido creada con éxito';
+        this.entendidoButton = 'De acuerdo';
+        this.errorCard = true;
+      }).catch(  (error) => {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+        if (errorCode == 'auth/email-already-in-use') {
+          this.tituloSolicitud = 'Algo ha salido mal';
+          this.mensajeSolicitud = 'El correo que has introducido ya se encuentra en uso, vuelve a intentarlo usando otro correo';
+          this.errorCard = true;
+        } else if(errorCode == 'auth/invalid-email') {
+          this.tituloSolicitud = 'Algo ha salido mal';
+          this.mensajeSolicitud = 'El correo que has introducido no es valido, vuelve a intentarlo con una dirección de correo válida';
+          this.errorCard = true;
+        } else {
+          this.tituloSolicitud = 'Algo ha salido mal';
+          this.mensajeSolicitud = 'Un error ha ocurrido, inténtalo más tarde';
+          this.errorCard = true;
+        }
+          
+        
+        console.log(error);
+      });
+    
+    }
+      
 
 
   }
