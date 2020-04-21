@@ -1,5 +1,4 @@
 <template>
-<v-app>
   <div class="registroWrapper">
     <div class="top"></div>
     <div class="registroCard">
@@ -53,7 +52,6 @@
       </v-card>
     </v-dialog>
   </div>
-  </v-app>
 </template>
 <script>
 //import { functions } from "firebase";

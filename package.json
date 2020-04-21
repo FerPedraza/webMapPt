@@ -18,6 +18,7 @@
     "mapbox-gl": "^1.7.0",
     "mapbox-gl-draw-circle": "^1.1.1",
     "mapbox-gl-vue": "^2.0.4",
+    "moment": "^2.24.0",
     "plotly.js": "^1.52.3",
     "v-calendar": "^1.0.1",
     "vue": "^2.6.10",

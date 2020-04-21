@@ -1,5 +1,4 @@
 <template>
-<v-app>
   <div class="loginWrapper">
     <div class="top"></div>
     <div class="loginCard">
@@ -37,7 +36,6 @@
     </div>
     <div class="bottom"></div>
   </div>
-</v-app>
 </template>
 <script>
 import firebase from "firebase";

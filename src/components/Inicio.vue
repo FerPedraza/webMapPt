@@ -1,107 +1,101 @@
 <template>
-  <div>
-    
-    <div>
-      <div id="bienvenidaFrame" v-show="mostrarMensaje">
-        <h1 id="bienvenidaMessage">Bienvenido</h1>
-        <p id="mensajePunto">
-          Selecciona un punto en
-          el mapa para comenzar
-        </p>
-        <button type="button" id="entendidoButton" @click="esconderMensaje">Entendido</button>
+  <div class="loginWrapper">
+    <div v-bind:id="['map']" v-bind:style="mapContainer"></div>
+    <div id="bienvenidaFrame" v-show="mostrarMensaje">
+      <h1 id="bienvenidaMessage">Bienvenido</h1>
+      <p id="mensajePunto">
+        Haz clic dos veces en el mapa para seleccionar un punto 
+      </p>
+      <v-btn id="entendidoButton" type="button" @click="esconderMensaje">Entendido</v-btn>
+    </div>
+    <div v-bind:id="['popupLugarContainer']" v-bind:style="popupLugarContainer" v-show="puntoSeleccionado.showPopup">
+      <h1>El punto seleccionado es: </h1>
+      <h2>{{puntoSeleccionado.direccion}}</h2>
+      <h3>Latitud / Longitud </h3>
+      <h4>{{puntoSeleccionado.lat}},{{puntoSeleccionado.lng}}</h4>
+      <b-container class="seleccionarRadio">
+        <b-form-input id="inputRadio" v-model="radio" @click="delimitarArea" type="number"></b-form-input>
+        <label >Selecciona el radio en km</label>
+        <v-btn type="button" id="delimitarButton" @click="mostrarAreabtn">Mostrar</v-btn>
+      </b-container>
+    </div>
+    <div id="barraMenu">
+      <div id="menu" type="button" @click="desplegarMenu">
+        <img src="../assets/menu.png" width="100%" height="100%" alt />
       </div>
-      <div v-bind:id="['popupLugar']" v-bind:style="popupLugarContainer" v-show="puntoSeleccionado.showPopup" >
-        <p>{{puntoSeleccionado.direccion}}</p> 
-        <p>{{puntoSeleccionado.lat}},{{puntoSeleccionado.lng}}</p>
-        <b-container fluid class="seleccionarRadio">
-          <b-row class="my-1">
-            <b-col sm="8">
-              <b-form-input id="ingresarRadio" v-model="radio" @click="delimitarArea"></b-form-input>
-              <label for="ingresarRadio">Ingresar Radio en km</label>
-              <!--<button v-show="delimitarAreaShowup" type="button" id="delimitarButton" @click="delimitarArea">Determinar</button>-->
-              <button  type="button" id="delimitarButton" @click="mostrarArea">Mostrar</button>
-            </b-col>
-          </b-row>
-        </b-container>
+      <div id="logout" type="button" @click="logOut">
+        <img src="../assets/logoutIcon.png" width="100%" height="100%" alt />
       </div>
-      <div id="barraMenu">
-        <div id="menu" type="button" @click="desplegarMenu">
-            <img src="../assets/menu.png" width="37px" height="40px" alt />
-            
-        </div>
-        <div id="logout" type="button" @click="logOut">
-            <img src="../assets/logoutIcon.png" width="37px" height="40px" alt />
-            
-        </div>
+    </div>
+    <div id="menuCard" v-show="menuShowup">
+      <div id="backMenu" @click="ocultarMenu">
+        <img src="../assets/chevronLeft.png" width="100%" height="100%" type="button" alt />  
       </div>
-      <div id="menuCard" v-show="menuShowup">
-        <div id="backMenu" @click="ocultarMenu">
-          <img src="../assets/chevronLeft.png" width="30px" height="45px" type="button" alt />  
-        </div>
-        <div id="userCard">
-          <img src="../assets/profile.png"  id="userIcon" alt /> 
-          <div id= "correoFrame"><p id="correo" >{{email}}</p></div>
-        </div>
-        <div id="infoFrame" >
-          <div v-show="!calendarShowup" ><p id="lugarTexto" >{{puntoSeleccionado.direccion}}</p></div>
-          
-          <div v-show="calendarShowup">
-            <div id="seleccionHora">
-              Seleccione la hora 
-              <select v-model="hora">
-                <option v-for="optionHoras in optionsHoras" v-bind:value="optionHoras.value" v-bind:key=optionHoras.value>
-                  {{ optionHoras.text }}
-                </option>
-              </select>
-              :
-              <select v-model="minuto">
-                <option v-for="optionMinutos in optionsMinutos" v-bind:value="optionMinutos.value" v-bind:key=optionMinutos.value>
-                  {{ optionMinutos.text }}
-                </option>
-              </select>
+      <div id="userCard">
+        <img src="../assets/profile.png"  id="userIcon" alt /> 
+        <div id= "correoFrame"><p id="correo" >{{email}}</p></div>
+      </div>
+      <div id="infoFrame" >
+        <div><p id="lugarTexto" >{{puntoSeleccionado.direccion}}</p></div>
+        <v-dialog v-model="calendarShowup" persistent justify="center">
+          <div id="seleccionFecha">
+            <p id="histogramaTitle">Selecciona una fecha <br>
+            para el análisis</p>
+            <v-btn id="calendarioButton" color="#1a9ea6" @click="analisDelictivo">Hecho</v-btn>
+            <div id="calendario">
+              <v-date-picker v-model="date"></v-date-picker>    
             </div>
-            <div id ="seleccionFecha">
-              <v-date-picker  v-model="date" is-inline/></div>
-            </div>
-            
-        </div>
-      </div>
-      <div v-bind:id="['histogramaFrame']" v-bind:style="histoCont" v-show="histogramaShowed">
-        <div id="maximizeIcon" type="button" @click="ampliarHistograma">
-          <img src="../assets/expand.png" width="55px" height="55px" alt/> 
-        </div>
-        <div id="histogramaTitleFrame">
-          <p id="histogramaTitle">
-            Delitos de la región conforme {{opcionSelecc}}
-            </p>
-        </div>
-        <div id="histogramaCard">
-          <div id="histo">
-            <div id="plot" />
           </div>
-          <v-app id="histobuttons">
-            <v-container fluid>
-              <v-row class="justify-space-between mb-6" >
-                <v-switch v-model="opcionSelecc" label="Dias" value="dias" ></v-switch>
-                <v-switch v-model="opcionSelecc" label="Meses" value="meses"></v-switch>
-                <v-switch v-model="opcionSelecc" label="Años" value="años"></v-switch>
-              </v-row>
-            </v-container>
-          </v-app>
+        </v-dialog>
+      </div>
+    </div>
+    <div>
+      <v-dialog v-model="radiomsj" persistent max-width="290" justify="center">
+        <v-card>
+          <v-card-title class="headline">¡Oh oh!</v-card-title>
+          <v-card-text>Debes seleccionar un punto en el mapa con doble clic y un radio para continuar</v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="#1a9ea6" text @click="radiomsj = false">Entendido</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </div>
+    <div v-bind:id="['histogramaFrame']" v-bind:style="histogramaFrame" v-show="histogramaShowed">
+      <div v-show="!histoExpanded" id="maximizeIcon" type="button" @click="ampliarHistograma">
+        <img src="../assets/expand.png" width="100%" height="100%" alt/> 
+      </div>
+      <div v-show="histoExpanded" id="minimizeIcon" type="button" @click="minimizarHistograma">
+        <img src="../assets/minimize.png" width="100%" height="100%" alt/> 
+      </div>
+      <div id="histogramaTitleFrame">
+        <p id="histogramaTitle">
+          Delitos de la región conforme {{opcionSelecc}}
+        </p>
+      </div>
+      <div id="histogramaCard">
+        <div id="histo">
+          <div id="plot" />
+        </div>
+        <div id="histobuttons">
+          <v-container fluid>
+            <v-row class="justify-space-between mb-6" >
+              <v-switch v-model="opcionSelecc" label="Dias" value="dias" ></v-switch>
+              <v-switch v-model="opcionSelecc" label="Meses" value="meses"></v-switch>
+              <v-switch v-model="opcionSelecc" label="Años" value="años"></v-switch>
+            </v-row>
+          </v-container>
         </div>
       </div>
-      <div id="buttonFrame" >
-        <v-btn v-show="showButtons" type="button" id="indiceButton" rounded color="primary" @click="indiceDelictivo">Indice delictivo</v-btn>
-        <v-btn v-show="showButtons" type="button" id="analisisButton" rounded color="primary" @click="analisisDelictivo">Análisis delictivo</v-btn>
-        <v-btn v-show="!showButtons" type="button" id="analisButton" rounded color="primary" @click="analisDelictivo">Lanzar análisis delictivo</v-btn>
-      </div>
-      <v-btn v-show="heatMapButton.showup" v-bind:id="['heatMapButtonStyle']" v-bind:style="buttonMapaCalor" rounded color="primary"  @click="mapaCalor" dark>{{heatMapButton.msj}}</v-btn>
-      <img v-show="heatMapButton.showup" v-bind:id="['maximizeHisto']" v-bind:style="buttonHistoExpand" type="button" @click="maximizeHistograma" src="../assets/expand.png" width="55px" height="55px" alt/> 
     </div>
-    <div v-bind:id="['map']" v-bind:style="mapContainer">
-      
-      
+    <div v-show="!menuShowup" id="buttonFrame" >
+      <v-btn v-show="showButtons" type="button" id="indiceButton" rounded  color="#1a9ea6" @click="indiceDelictivo">Indice delictivo</v-btn>
+      <v-btn v-show="showButtons" type="button" id="analisisButton" rounded  color="#1a9ea6" @click="analisisDelictivo">Análisis delictivo</v-btn>   
     </div>
+    <img v-show="showButtons && showInfoIcon && !menuShowup" id="infoPunto" type="button" @click="infoPunto" src="../assets/pointInfo.png" alt/>
+    <v-btn v-show="heatMapButton.showup" v-bind:id="['heatMapButtonStyle']" v-bind:style="buttonMapaCalor" rounded color="#1a9ea6"  @click="mapaCalor" dark>{{heatMapButton.msj}}</v-btn>
+    <img v-show="heatMapButton.showup && mapExpanded"  id="buttonMapExpand" type="button" @click="maximizeMapa" src="../assets/expand.png" width="100%" height="100%" alt/>
+    <img v-show="!mapExpanded" id="buttonMapMinimize" type="button" @click="minimizaMapa" src="../assets/minimize.png" width="100%" height="100%" alt/>        
   </div>
 </template>
 <script>
@@ -110,6 +104,7 @@ import {mapState} from 'vuex';
 import firebase from "firebase";
 import Plotly from 'plotly.js';
 import axios from 'axios';
+import moment from 'moment'
 var _ = require('lodash');
 
 export default {
@@ -118,6 +113,10 @@ export default {
   },
   data() {
     return {
+      radiomsj: false,
+      showInfoIcon: false,
+      mapExpanded: true,
+      histoExpanded: false,
       heatMapButton:{
         showup: false,
         msj: 'Mostrar mapa de calor'
@@ -242,7 +241,7 @@ export default {
           height: '95%',
           width: '100%',
       },
-      histoCont:{
+      histogramaFrame:{
           position: 'absolute',
           width: '50%',
           height: '95%',
@@ -253,15 +252,12 @@ export default {
           width: '860px',
           height: '650px',
       },
-      buttonHistoExpand:{
-          left: '45%',  
-      },
       buttonMapaCalor:{
-          left: '37%',  
+          right: '51%',  
       },
       
       popupLugarContainer:{
-        left: '42%',
+        left: '50%',
       },
       email: null,
       firebaseUid: null,
@@ -291,6 +287,11 @@ export default {
 
   },
   methods: {
+    format_date(value){
+      if (value) {                          
+        return moment(String(value)).format('YYYY-MM-DD')
+      }
+    },
     createMap: function () {
       Mapbox.accessToken = this.accessToken
       this.map = new Mapbox.Map({ //acceder a map con store
@@ -308,11 +309,14 @@ export default {
         this.showButtons = true;
         this.histogramaShowed = false;
         this.heatMapButton.showup = false;
+        this.mostrarMensaje = false;
+        this.showInfoIcon = false;
+        this.mapExpanded = true;
         this.mapContainer.width = "100%";
         this.mapContainer.left = "0%";
-        this.histoCont.width = "50%";
-        this.popupLugarContainer.left = "42%";
-        this.ocultarMenu();
+        this.histogramaFrame.width = "50%";
+        this.popupLugarContainer.left = "50%";
+        this.menuShowup = false;
         
         if (this.map.getLayer("earthquakes-heat")) {
           this.map.removeLayer("earthquakes-heat");
@@ -378,45 +382,96 @@ export default {
     esconderMensaje() {
       this.mostrarMensaje = false;
     },
+    mostrarAreabtn(){
+      this.mostrarArea();  
+      this.delimitarArea();
+    },
     mostrarArea(){
       console.log("Zoom al mapa");
-      // Geographic coordinates of the LineString
       this.map.fitBounds([
         [this.puntoSeleccionado.lng,(this.puntoSeleccionado.lat + this.radio/111)],
         [this.puntoSeleccionado.lng,(this.puntoSeleccionado.lat - this.radio/111)]
       ]);
-
+    },
+    centrarIzquierda(){
+      let width = document.getElementById("map").offsetWidth;
+      this.map.fitBounds([
+        [this.puntoSeleccionado.lng,(this.puntoSeleccionado.lat + this.radio/111)],
+        [this.puntoSeleccionado.lng,(this.puntoSeleccionado.lat - this.radio/111)]
+      ],
+      {offset: [-width/8, 0]}
+      );
     },
     desplegarMenu(){
+      if(this.radio>0){
+        this.mostrarAreabtn();
+      }
       this.menuShowup = true;
       this.histogramaShowed = false;
       this.heatMapButton.showup = false;
       this.mapContainer.width = "80%";
       this.mapContainer.left = "20%";
-      this.histoCont.width = "50%";
+      this.histogramaFrame.width = "50%";
       this.popupLugarContainer.left = "57%";
     },
     indiceDelictivo(){
-      this.buttonHistoExpand.left = "45%";
-      this.buttonMapaCalor.left ="37%";
-      this.histogramaShowed = true;
-      this.menuShowup = false;
-      this.heatMapButton.showup = true;
-      this.mapContainer.left = "0%";
-      this.mapContainer.width = "50%";
-      this.popupLugarContainer.left = "20%";
-      console.log("Entre al indice");
-      this.solicitudhistograma()
+      if (this.radio > 0){
+        this.radiomsj = false;
+        if (this.map.getLayer("marker")) {
+          this.map.removeLayer("marker");
+        }
+        if (this.map.getSource("markers")) {
+          this.map.removeSource("markers");
+        }
+        if (this.map.getLayer("points")) {
+          this.map.removeLayer("points");
+        }
+        if (this.map.getSource("point")) {
+          this.map.removeSource("point");
+        }
+        if (this.map.getLayer("predictions")) {
+          this.map.removeLayer("predictions");
+        }
+        if (this.map.getSource("prediction")) {
+          this.map.removeSource("prediction");
+        }
+        if (this.map.getLayer("trees-point")) {
+          this.map.removeLayer("trees-point");
+        }
+        if (this.map.getLayer("trees-heat")) {
+          this.map.removeLayer("trees-heat");
+        }
+        if (this.map.getSource("trees")) {
+          this.map.removeSource("trees");
+        }
+        this.puntoSeleccionado.showPopup = false;
+        this.showInfoIcon = true;
+        this.buttonMapaCalor.right ="51%";
+        this.histoExpanded = false;
+        this.mapExpanded = true;
+        this.histogramaShowed = true;
+        this.menuShowup = false;
+        this.heatMapButton.showup = true;
+        this.mapContainer.left = "0%";
+        this.mapContainer.width = "50%";
+        this.histogramaFrame.width = "50%";
+        this.solicitudhistograma();
+        this.mostrarAreabtn();
+        this.centrarIzquierda();
+        
+      }
+      else{
+        this.radiomsj = true;
+      }
     },
     solicitudhistograma(){
       var i = 0;
       var j = 0;
       if(this.opcionSelecc == 'dias'){
-        
         //http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7400/?radio=2000&lat=19.50146&long=-99.24939&opcion=histograma&parametro=diaSemana
         //http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7400/?radio=1700&lat=19.54532&long=-99.13508&opcion=histograma&parametro=diaSemana
-        let url = 'http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7400/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&opcion=histograma&parametro=diaSemana';
-        console.log(url);
+        //let url = 'http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7400/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&opcion=histograma&parametro=diaSemana';
+        let url = 'http://localhost:8080/diaSemana.json'
         this.x = this.dias;
         axios.get(url,{ crossdomain: true })
         .then(response => {
@@ -436,8 +491,8 @@ export default {
       
       if(this.opcionSelecc == 'meses'){
         this.x = this.meses;
-        let url = 'http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7400/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&opcion=histograma&parametro=mes';
-        console.log(url);
+        //let url = 'http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7400/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&opcion=histograma&parametro=mes';
+        let url = 'http://localhost:8080/mes.json'
         axios.get(url,{ crossdomain: true })
         .then(response => {
           this.info = response.data
@@ -452,8 +507,8 @@ export default {
       }
       if(this.opcionSelecc == 'años'){
         this.x = this.años;
-        let url = 'http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7400/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&opcion=histograma&parametro=ano';
-        console.log(url);
+        //let url = 'http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7400/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&opcion=histograma&parametro=ano';
+        let url = 'http://localhost:8080/ano.json'
         axios.get(url,{ crossdomain: true })
         .then(response => {
           this.info = response.data;
@@ -495,141 +550,140 @@ export default {
       console.log(this.histogramaGraph.width + this.histogramaGraph.height)
     },
     mapaCalor(){
-      if(this.heatMapButton.msj == 'Mostrar mapa de calor'){
-        
-        if (this.map.getLayer("marker")) {
-        this.map.removeLayer("marker");
-      }
-      if (this.map.getSource("markers")) {
-        this.map.removeSource("markers");
-      }
-      if (this.map.getLayer("points")) {
-        this.map.removeLayer("points");
-      }
-      if (this.map.getSource("point")) {
-        this.map.removeSource("point");
-      }
-        let url = 'http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7400/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&opcion=mapaCalor';
-        console.log('http://localhost:8080/yh.json');
-        this.heatMapButton.msj = 'Ocultar mapa de calor';
-        this.map.addSource('trees', {
-          type: 'geojson',
-          data: url,
-        });
-        this.map.addLayer({
-          id: 'trees-heat',
-          type: 'heatmap',
-          source: 'trees',
-          maxzoom: 15,
-          paint: {
-            // increase weight as diameter breast height increases
-            'heatmap-weight': {
-              property: 'delitos',
-              type: 'interval',
-              stops: [
-                [1, 0],
-                [80, 1]
-              ]
-            },
-            // increase intensity as zoom level increases
-            'heatmap-intensity': {
-              stops: [
-                [11, 1],
-                [15, 3]
-              ]
-            },
-            // assign color values be applied to points depending on their density
-            'heatmap-color': [
-              'interpolate',
-              ['linear'],
-              ['heatmap-density'],
-              0, 'rgba(236,222,239,0)',
-              0.1, 'rgb(254,217,118)',
-              0.2, 'rgb(254,178,76)',
-              0.3, 'rgb(253,141,60)',
-              0.5, 'rgb(252,78,42)',
-              0.7, 'rgb(227,26,28)',
-              0.9 , 'rgb(177,0,38)',
-              
-            ],
-            // increase radius as zoom increases
-            'heatmap-radius': {
-              stops: [
-                [11, 15],
-                [15, 20]
-              ]
-            },
-            // decrease opacity to transition into the circle layer
-            'heatmap-opacity': {
-              default: 1,
-              stops: [
-                [16, 1],
-                [18, 0] 
-              ]
-            },
-          }
-        }, 'waterway-label');
-        this.map.addLayer({
-          id: 'trees-point',
-          type: 'circle',
-          source: 'trees',
-          minzoom: 15,
-          paint: {
-            // increase the radius of the circle as the zoom level and dbh value increases
-            'circle-radius': {
-              property: 'delitos',
-              type: 'exponential',
-              stops: [
-                [{ zoom: 15, value: 1 }, 5],
-                [{ zoom: 15, value: 80 }, 10],
-                [{ zoom: 22, value: 1 }, 20],
-                [{ zoom: 22, value: 80 }, 50],
-              ]
-            },
-            'circle-color': {
-              property: 'delitos',
-              type: 'exponential',
-              stops: [
-                [0, 'rgba(236,222,239,0)'],
-                [20, 'rgb(254,217,118)'],
-                [40, 'rgb(254,178,76)'],
-                [70, 'rgb(253,141,60)'],
-                [100, 'rgb(252,78,42)'],
-                [130, 'rgb(227,26,28)'],
-                [160 , 'rgb(177,0,38)']
-              ]
-            },
-            'circle-stroke-color': 'white',
-            'circle-stroke-width': 1,
-            'circle-opacity': {
-              stops: [
-                [14, 0],
-                [15, 1]
-              ]
+      
+        if(this.heatMapButton.msj == 'Mostrar mapa de calor'){
+          
+          if (this.map.getLayer("marker")) {
+          this.map.removeLayer("marker");
+        }
+        if (this.map.getSource("markers")) {
+          this.map.removeSource("markers");
+        }
+        if (this.map.getLayer("points")) {
+          this.map.removeLayer("points");
+        }
+        if (this.map.getSource("point")) {
+          this.map.removeSource("point");
+        }
+          //let url = 'http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7400/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&opcion=mapaCalor';
+          let url = 'http://localhost:8080/yh.json'
+          this.heatMapButton.msj = 'Ocultar mapa de calor';
+          this.map.addSource('trees', {
+            type: 'geojson',
+            data: url,
+          });
+          this.map.addLayer({
+            id: 'trees-heat',
+            type: 'heatmap',
+            source: 'trees',
+            maxzoom: 15,
+            paint: {
+              // increase weight as diameter breast height increases
+              'heatmap-weight': {
+                property: 'delitos',
+                type: 'interval',
+                stops: [
+                  [1, 0],
+                  [80, 1]
+                ]
+              },
+              // increase intensity as zoom level increases
+              'heatmap-intensity': {
+                stops: [
+                  [11, 1],
+                  [15, 3]
+                ]
+              },
+              // assign color values be applied to points depending on their density
+              'heatmap-color': [
+                'interpolate',
+                ['linear'],
+                ['heatmap-density'],
+                0, 'rgba(236,222,239,0)',
+                0.1, 'rgb(254,217,118)',
+                0.2, 'rgb(254,178,76)',
+                0.3, 'rgb(253,141,60)',
+                0.5, 'rgb(252,78,42)',
+                0.7, 'rgb(227,26,28)',
+                0.9 , 'rgb(177,0,38)',
+                
+              ],
+              // increase radius as zoom increases
+              'heatmap-radius': {
+                stops: [
+                  [11, 15],
+                  [15, 20]
+                ]
+              },
+              // decrease opacity to transition into the circle layer
+              'heatmap-opacity': {
+                default: 1,
+                stops: [
+                  [16, 1],
+                  [18, 0] 
+                ]
+              },
             }
+          }, 'waterway-label');
+          this.map.addLayer({
+            id: 'trees-point',
+            type: 'circle',
+            source: 'trees',
+            minzoom: 15,
+            paint: {
+              // increase the radius of the circle as the zoom level and dbh value increases
+              'circle-radius': {
+                property: 'delitos',
+                type: 'exponential',
+                stops: [
+                  [{ zoom: 15, value: 1 }, 5],
+                  [{ zoom: 15, value: 80 }, 10],
+                  [{ zoom: 22, value: 1 }, 20],
+                  [{ zoom: 22, value: 80 }, 50],
+                ]
+              },
+              'circle-color': {
+                property: 'delitos',
+                type: 'exponential',
+                stops: [
+                  [0, 'rgba(236,222,239,0)'],
+                  [20, 'rgb(254,217,118)'],
+                  [40, 'rgb(254,178,76)'],
+                  [70, 'rgb(253,141,60)'],
+                  [100, 'rgb(252,78,42)'],
+                  [130, 'rgb(227,26,28)'],
+                  [160 , 'rgb(177,0,38)']
+                ]
+              },
+              'circle-stroke-color': 'white',
+              'circle-stroke-width': 1,
+              'circle-opacity': {
+                stops: [
+                  [14, 0],
+                  [15, 1]
+                ]
+              }
+            }
+          }, 'waterway-label');
+        }
+        else if(this.heatMapButton.msj == 'Ocultar mapa de calor'){
+          if (this.map.getLayer("trees-point")) {
+            this.map.removeLayer("trees-point");
           }
-        }, 'waterway-label');
-      }
-      else if(this.heatMapButton.msj == 'Ocultar mapa de calor'){
-        if (this.map.getLayer("trees-point")) {
-          this.map.removeLayer("trees-point");
+          if (this.map.getLayer("trees-heat")) {
+            this.map.removeLayer("trees-heat");
+          }
+          if (this.map.getSource("trees")) {
+            this.map.removeSource("trees");
+          }
+          this.heatMapButton.msj = "Mostrar mapa de calor"
         }
-        if (this.map.getLayer("trees-heat")) {
-          this.map.removeLayer("trees-heat");
-        }
-        if (this.map.getSource("trees")) {
-          this.map.removeSource("trees");
-        }
-        this.heatMapButton.msj = "Mostrar mapa de calor"
-      }
+      
     },
     analisisDelictivo(){
-      this.calendarShowup = true;
-      this.showButtons = false;      
-      console.log("Entre al analisis");
-    },
-    analisDelictivo(){
-      console.log("Pos lo lanzamos");
+      if(this.radio>0){
+        this.histoExpanded = false;
+        this.mapExpanded = true;
       if (this.map.getLayer("marker")) {
         this.map.removeLayer("marker");
       }
@@ -648,16 +702,47 @@ export default {
       if (this.map.getSource("prediction")) {
         this.map.removeSource("prediction");
       }
-        this.getPredicciones();
-        
-        
+      if (this.map.getLayer("trees-point")) {
+        this.map.removeLayer("trees-point");
+      }
+      if (this.map.getLayer("trees-heat")) {
+        this.map.removeLayer("trees-heat");
+      }
+      if (this.map.getSource("trees")) {
+        this.map.removeSource("trees");
+      }
+      this.heatMapButton.msj = "Mostrar mapa de calor"
+      this.puntoSeleccionado.showPopup = false;
+      this.calendarShowup = false;
+      this.showButtons = true;
+      this.histogramaShowed = false;
+      this.heatMapButton.showup = false;
+      this.mostrarMensaje = false;
+      this.showInfoIcon = true;
+      this.mapExpanded = true;
+      this.mapContainer.width = "100%";
+      this.mapContainer.left = "0%";
+      this.histogramaFrame.width = "50%";
+      this.popupLugarContainer.left = "50%";      
+      
+      this.puntoSeleccionado.showPopup = false;
+      this.showInfoIcon = true;
+      this.calendarShowup = true;
+      this.showButtons = true;
+      }else{
+        this.radiomsj = true;
+      }
+    },
+    analisDelictivo(){
+      console.log("Pos lo lanzamos");
+      
+      this.getPredicciones();
+      this.calendarShowup = false;
     },
     getPredicciones(){
-      //http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7300/?radio=1500&lat=19.51197&long=-99.12691&fechaInicial=2020-03-10%2000:00&fechaFinal=2020-03-11%2023:59
       console.log(this.date);
-      let url = 'http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7300/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&fechaInicial='+'2020-03-10'+'%2000:00&fechaFinal='+'2020-03-11'+'%2023:59';
-      //var url = 'http://localhost:8080/responsePredicciones.json'
-      console.log(url)
+      //let url = 'http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7300/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&fechaInicial='+this.format_date(this.date)+'%2000:00&fechaFinal='+this.format_date(this.date)+'%2023:59';
+      let url = 'http://localhost:8080/responsePredicciones.json'
       axios.get(url,{ crossdomain: true })
         .then(response => {
           var coorde = response.data;
@@ -723,37 +808,56 @@ export default {
         })
       
     },
-    maximizeHistograma(){
+    maximizeMapa(){
+      this.mapExpanded = false;
       this.histogramaShowed = false;
       this.menuShowup = false;
+      
       this.mapContainer.left = "0%";
       this.mapContainer.width = "100%";
-      this.histoCont.width = "50%";
-      this.popupLugarContainer.left = "42%";
-      this.buttonMapaCalor.left = "87%";
-      this.buttonHistoExpand.left = "95%";
-      this.histogramaGraph.width = "1720px";
-      this.histogramaGraph.height = "650px";
-      
+      this.histogramaFrame.width = "50%"; //
+      this.popupLugarContainer.left = "42%"; // seria false
+      this.buttonMapaCalor.right = "1%"; //
+      this.mostrarArea();
+      //this.histogramaGraph.width = "1720px"; //Por eso no salia el histo 
+      //this.histogramaGraph.height = "650px";
+    },
+    minimizaMapa(){
+      this.mapExpanded = true;
+      this.histogramaShowed = true;
+      this.menuShowup = false;
+      this.mapContainer.width = "50%";
+      this.popupLugarContainer.left = "42%"; //seria false
+      this.buttonMapaCalor.right = "51%";
+      this.centrarIzquierda();
+      //this.histogramaGraph.width = "1720px";
+      //this.histogramaGraph.height = "650px";
+    },
+    minimizarHistograma(){
+      this.heatMapButton.showup = true;
+      this.histogramaFrame.width = "50%";
+      this.histoExpanded = false;
       this.solicitudhistograma();
-      
     },
     ampliarHistograma(){
       this.heatMapButton.showup = false;
-      this.histoCont.width = "100%";
-      
+      this.histogramaFrame.width = "100%";
+      this.histoExpanded = true;
+      this.solicitudhistograma();
     },
     cerrarHistograma(){
 
     },
     ocultarMenu(){
+      if(this.radio>0){
+        this.mostrarAreabtn();
+      }
       this.menuShowup = false;
       this.calendarShowup = false;
       this.showButtons = true;
       this.mapContainer.left = "0%";
       this.mapContainer.width = "100%";
-      this.popupLugarContainer.left = "42%";
-
+      this.popupLugarContainer.left = "50%";
     },
     logOut(){
       firebase.auth().signOut().then(function() {
@@ -815,6 +919,49 @@ export default {
           },
         });
       }
+    },
+    infoPunto(){
+      if (this.map.getLayer("marker")) {
+        this.map.removeLayer("marker");
+      }
+      if (this.map.getSource("markers")) {
+        this.map.removeSource("markers");
+      }
+      if (this.map.getLayer("points")) {
+        this.map.removeLayer("points");
+      }
+      if (this.map.getSource("point")) {
+        this.map.removeSource("point");
+      }
+      if (this.map.getLayer("predictions")) {
+        this.map.removeLayer("predictions");
+      }
+      if (this.map.getSource("prediction")) {
+        this.map.removeSource("prediction");
+      }
+      if (this.map.getLayer("trees-point")) {
+        this.map.removeLayer("trees-point");
+      }
+      if (this.map.getLayer("trees-heat")) {
+        this.map.removeLayer("trees-heat");
+      }
+      if (this.map.getSource("trees")) {
+        this.map.removeSource("trees");
+      }
+      this.heatMapButton.msj = "Mostrar mapa de calor"
+      this.puntoSeleccionado.showPopup = true;
+      this.calendarShowup = false;
+      this.showButtons = true;
+      this.histogramaShowed = false;
+      this.heatMapButton.showup = false;
+      this.mostrarMensaje = false;
+      this.showInfoIcon = false;
+      this.mapExpanded = true;
+      this.mapContainer.width = "100%";
+      this.mapContainer.left = "0%";
+      this.histogramaFrame.width = "50%";
+      this.popupLugarContainer.left = "50%";
+      this.mostrarAreabtn();
     }
   }
 };
@@ -822,16 +969,11 @@ export default {
 </script>
 <style scoped>
 @import url("https://api.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css");
-#map {
-  z-index: -99;
+.loginWrapper {
+  width: 100%;
+  height: 100%;
 }
-#userCard{
-  position: absolute;
-  width: 70%;
-  height: 10%;
-  left: 5%;
-  top: 7.5%;
-  background: #1a9ea6;
+#map {
 }
 #seleccionHora{
   position: absolute;
@@ -843,25 +985,18 @@ export default {
 }
 #seleccionFecha{
   position: absolute;
-  width: 80%;
-  height: 55%;
-  left: 13%;
-  top: 20%;
-  background: #ffffff;
-}
-#infoFrame{
-  position: absolute;
-  width: 80%;
-  height: 55%;
-  left: 10%;
-  top: 22%;
+  width: 40vh;
+  height: 30vh;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   background: #ffffff;
 }
 #buttonFrame{
   position: absolute;
-  width: 20%;
-  height: 15%;
-  left: 0-5%;
+  width: 17em;
+  height: 15vh;
+  left: 2%;
   top: 85%;
 }
 #histogramaFrame{
@@ -906,44 +1041,60 @@ export default {
   background: #1a9ea6;
 }
 #backMenu {
-  position: absolute;
-  width: 3%;
-  height: 3%;
-  right: 10%;
-  top: 0.7%;
+  position: relative;
+  width: 1.5em;
+  height: 2em;
+  left: 85%;
+  top: 1.7%;
   background: #1a9ea6;
 }
-#logout {
+#infoFrame{
   position: absolute;
-  width: 3%;
-  height: 3%;
-  right: 0.5%;
-  top: 8%;
-  background: #1a9ea6;
-}
-#maximizeIcon {
-  position: absolute;
-  width: 3%;
-  height: 3%;
-  right: 5%;
-  top: 3%;
+  width: 80%;
+  height: 73%;
+  left: 10%;
+  top: 22%;
   background: #ffffff;
+}
+#userCard{
+  position: absolute;
+  width: 85%;
+  height: 10%;
+  left: 5%;
+  top: 7.5%;
+  background: #1a9ea6;
 }
 #userIcon {
   position: absolute;
-  width: 25%;
-  height: 75%;
+  width: 3.5vw;
+  height: 3vw;
   left: 1%;
-  top: 10%;
+  top: 15%;
   background: #1a9ea6;
 }
 #correoFrame {
-  position: absolute;
-  width: 25%;
+  position: relative;
+  width: 75%;
   height: 80%;
-  left: 30%;
-  top: 55%;
+  left: 25%;
+  top: 10%;
   background: #1a9ea6;
+}
+#correo {
+  position: relative;
+  width: 100%;
+  height: 2em;
+  top: 1em;
+  font-family: Manjari;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 2vh;
+  line-height: 2em;
+  text-align: left;
+  color: #ffffff;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  white-space: normal;
 }
 #barraMenu{
   position: absolute;
@@ -951,29 +1102,54 @@ export default {
   left: 0;
   height: 5%;
   width: 100%;
-  z-index: -99;
   background: #1a9ea6;
 }
 #bienvenidaFrame {
   position: absolute;
-  width: 566px;
-  height: 328px;
-  left: 36%;
-  top: 30%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 30vw;
+  height: 35vh;
   background: #1a9ea6;
 }
 #bienvenidaMessage {
-  position: absolute;
-  width: 234px;
-  height: 53px;
-  left: 30%;
-  top: 15%;
+  position: relative;
+  left: 50%;
+  top: 18%;
+  transform: translate(-50%, -50%);
+  width: 70%;
   font-family: Manjari;
   font-style: normal;
   font-weight: normal;
-  font-size: 48px;
-  line-height: 53px;
+  font-size: 4.5vh;
+  line-height: 0.8vh;
   text-align: center;
+  color: #ffffff;
+}
+#mensajePunto {
+  position: relative;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  font-family: Manjari;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 2.7vh;
+  line-height: 1em;
+  text-align: center;
+  color: #ffffff;
+}
+#entendidoButton {
+  position: absolute;
+  left: 50%;
+  top: 75%;
+  transform: translate(-50%, -50%);
+  width: 12em;
+  height: 3em;
+  background: #11656a;
+  border-color: #11656a;
   color: #ffffff;
 }
 #histogramaTitleFrame {
@@ -985,31 +1161,47 @@ export default {
   background: #ffffff;
 }
 #histogramaTitle{
-  position: absolute;
+  position: relative;
+  left: 50%;
+  top: 18%;
   width: 80%;
-  height: 5px;
-  left: 10%;
-  top: 11%;
+  transform: translate(-50%, -50%);
   font-family: Manjari;
   font-style: normal;
   font-weight: normal;
-  font-size: 25px;
-  line-height: 30px;
+  font-size: 2.8vh;
+  line-height: 3vh;
   text-align: center;
   color: #000000;
 }
-#mensajePunto {
-  position: absolute;
-  width: 258px;
-  height: 52px;
-  left: 154px;
-  top: 138px;
+/*#calendarioTitle{
+  position: relative;
+  left: 50%;
+  top: 18%;
+  width: 80%;
+  transform: translate(-50%, -50%);
   font-family: Manjari;
   font-style: normal;
   font-weight: normal;
-  font-size: 24px;
-  line-height: 26px;
+  font-size: 2.8vh;
+  line-height: 3vh;
   text-align: center;
+  color: #000000;
+}*/
+#calendario{
+  position: relative;
+  left: 50%;
+  top: 25%;
+  width: 70%;
+  transform: translate(-50%, -50%);
+}
+#calendarioButton{
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  width: 30%;
+  transform: translate(-50%, -50%);
+  font-family: Manjari;
   color: #ffffff;
 }
 #lugarTexto{
@@ -1020,55 +1212,133 @@ export default {
   font-family: Manjari;
   font-style: normal;
   font-weight: normal;
-  font-size: 24px;
-  line-height: 26px;
-  text-align: center;
+  font-size: 3vh;
+  line-height: 1em;
+  
   color: #000000;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  white-space: normal;
 }
-#correo {
+#popupLugarContainer {
   position: absolute;
+  width: 25vw;
+  height: 30vh;
+  bottom: -12vh;
+  transform: translate(-50%, -50%);
+  background: #1a9ea6;
+}
+#popupLugarContainer h1{
+  position: relative;
+  left: 50%;
+  top: 10%;
+  width: 90%;
+  transform: translate(-50%, -50%);
   font-family: Manjari;
   font-style: normal;
   font-weight: normal;
-  font-size: 18px;
-  line-height: 26px;
+  font-size: 2.2vh;
+  line-height: 1em;
   text-align: center;
   color: #ffffff;
 }
-#entendidoButton {
-  position: absolute;
-  width: 130px;
-  height: 45px;
-  left: 218px;
-  top: 220px;
-  background: #11656a;
-  border-color: #11656a;
+#popupLugarContainer h2{
+  position: relative;
+  left: 47%;
+  top: 11%;
+  width: 90%;
+  height: 2.9em;
+  transform: translate(-50%, -50%);
+  font-family: Manjari;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.8vh;
+  line-height: 1em;
+  text-align: left;
+  margin: 1em;
+  color: #dddddd;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  white-space: normal;
+}
+#popupLugarContainer h3{
+  position: relative;
+  left: 45%;
+  width: 80%;
+  top: 0.2em;
+  transform: translate(-50%, -50%);
+  font-family: Manjari;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 2.1vh;
+  line-height: 1em;
+  text-align: center;
+  margin: 1em;
   color: #ffffff;
 }
-
-#popupLugar {
-  position: absolute;
-  width: 319px;
-  height: 242px;
-  top: 65%;
-  background: #1a9ea6;
+#popupLugarContainer h4{
+  position: relative;
+  left: 45%;
+  width: 90%;
+  top: -.9em;
+  transform: translate(-50%, -50%);
+  font-family: Manjari;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.8vh;
+  line-height: 1em;
+  text-align: center;
+  margin: 1em;
+  color: #dddddd;
 }
 .seleccionarRadio {
-  position: absolute;
-  left: 17%;
-  bottom: 10%;
+  position: relative;
+  height: 45%;
+  width: 80%;
+  left: 7%;
+  bottom: 14%;
+}
+#inputRadio{
+  position: relative;
+  height: 35%;
+  width: 80%;
+  left: 0%;
+  top: 0%;
+}
+.seleccionarRadio label{
+  position: relative;
+  width: 90%;
+  left: -10%;
+  top: 7%;
+  height: 1em;
+  color: #ffffff;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  white-space: normal;
 }
 #delimitarButton {
+  position: relative;
+  height: 35%;
+  width: 6em;
+  left: -10%;
   background: #11656a;
   border-color: #11656a;
   color: #ffff;
 }
 #menu {
+  position: relative;
+  width: 3.6vh;
+  height: 3.6vh;
+  left: 0.7%;
+  top: 15%;
+  background: #1a9ea6;
+}
+#logout {
   position: absolute;
-  width: 3%;
-  height: 3%;
-  left: 0.5%;
-  top: 8%;
+  width: 3.6vh;
+  height: 3.6vh;
+  right: 0.7%;
+  top: 15%;
   background: #1a9ea6;
 }
 #histogramaCard{
@@ -1100,9 +1370,42 @@ export default {
   bottom: 5%;
   background: #1a9ea6;
 }
-#maximizeHisto{
+#buttonMapExpand{
   position: absolute;
-  top: 10%;
+  left: 46%;
+  top: 8%;
+  width: 4vh;
+  height: 4vh;
+}
+#buttonMapMinimize{
+  position: absolute;
+  left: 96%;
+  top: 8%;
+  width: 4vh;
+  height: 4vh;
+}
+#maximizeIcon {
+  position: absolute;
+  width: 4vh;
+  height: 4vh;
+  left: 92%;
+  top: 3%;
+  background: #ffffff;
+}
+#minimizeIcon{
+  position: absolute;
+  width: 4vh;
+  height: 4vh;
+  left: 96%;
+  top: 3%;
+  background: #ffffff;
+}
+#infoPunto{
+  position: absolute;
+  left: 0.5%;
+  top: 6%;
+  width: 7vh;
+  height: 7vh;
 }
 </style>
 
