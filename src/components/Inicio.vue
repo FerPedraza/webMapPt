@@ -36,7 +36,7 @@
         <div id= "correoFrame"><p id="correo" >{{email}}</p></div>
       </div>
       <div id="infoFrame" >
-        <v-list-item-group v-model="lugarList" color="#1a9ea6">
+        <v-list-item-group v-model="lugarList" color="#1a9ea6" >
         <v-list-item two-line v-for="(lugar, i) in lugaresGuardados" :key="i" :disabled="false" @click="pointListSelected(lugar)">
           <v-list-item-content>
             <v-list-item-title>{{lugaresGuardados[i].nombre}}</v-list-item-title>
@@ -1136,6 +1136,7 @@ export default {
   height: 73%;
   left: 10%;
   top: 22%;
+  overflow-y:auto;
   background: #ffffff;
 }
 #userCard{
@@ -1498,7 +1499,6 @@ export default {
   transform: translate(-50%, -50%);
   background: #ffffff;
 }
-
 </style>
 
 

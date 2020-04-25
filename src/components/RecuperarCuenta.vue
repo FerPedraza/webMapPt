@@ -2,9 +2,9 @@
   <v-app>
     <div class="recuperarWrapper">
       <div class="top">
-        <div id="backLogin" @click="regresar">
-          <img src="../assets/back_.png" />
-        </div>
+        <div id="backLogin"  type="button" @click="regresar">
+        <img src="../assets/back.png" width="100%" height="100%" alt/>
+      </div>
       </div>
       <div class="recuperarCard">
         <div id="logo">
@@ -98,8 +98,12 @@ export default {
 </script>
 <style scoped>
 #backLogin {
-  float: left;
-  margin-top: 0.5em;
+  position: relative;
+  left: 0%;
+  top: 5%;
+  width: 9vh;
+  height: 10vh;
+  background: #1a9ea6;
 }
 .recuperarWrapper {
   width: 100%;
