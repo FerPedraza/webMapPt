@@ -12,7 +12,10 @@ import store from './store'
 import VCalendar from 'v-calendar'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
-
+import VueGmaps from 'vue-gmaps'
+Vue.use(VueGmaps, {
+  key: 'AIzaSyB5MaSP-xygAojtgEtEbBhTevCe-aXFhlQ'
+})
 Vue.use(Vuetify)
 Vue.use(VCalendar);
 Vue.use(Vuex)

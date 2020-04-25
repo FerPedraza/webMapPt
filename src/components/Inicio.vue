@@ -36,7 +36,14 @@
         <div id= "correoFrame"><p id="correo" >{{email}}</p></div>
       </div>
       <div id="infoFrame" >
-        <div><p id="lugarTexto" >{{puntoSeleccionado.direccion}}</p></div>
+        <v-list-item-group v-model="lugarList" color="#1a9ea6">
+        <v-list-item two-line v-for="(lugar, i) in lugaresGuardados" :key="i" :disabled="false" @click="pointListSelected(lugar)">
+          <v-list-item-content>
+            <v-list-item-title>{{lugaresGuardados[i].nombre}}</v-list-item-title>
+            <v-list-item-subtitle>lat:{{lugaresGuardados[i].lat}} / long:{{lugaresGuardados[i].long}}</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        </v-list-item-group>
         <v-dialog v-model="calendarShowup" persistent justify="center">
           <div id="seleccionFecha">
             <p id="histogramaTitle">Selecciona una fecha <br>
@@ -95,24 +102,34 @@
     <img v-show="showButtons && showInfoIcon && !menuShowup" id="infoPunto" type="button" @click="infoPunto" src="../assets/pointInfo.png" alt/>
     <v-btn v-show="heatMapButton.showup" v-bind:id="['heatMapButtonStyle']" v-bind:style="buttonMapaCalor" rounded color="#1a9ea6"  @click="mapaCalor" dark>{{heatMapButton.msj}}</v-btn>
     <img v-show="heatMapButton.showup && mapExpanded"  id="buttonMapExpand" type="button" @click="maximizeMapa" src="../assets/expand.png" width="100%" height="100%" alt/>
-    <img v-show="!mapExpanded" id="buttonMapMinimize" type="button" @click="minimizaMapa" src="../assets/minimize.png" width="100%" height="100%" alt/>        
+    <img v-show="!mapExpanded" id="buttonMapMinimize" type="button" @click="minimizaMapa" src="../assets/minimize.png" width="100%" height="100%" alt/> 
+    <vue-google-autocomplete id="search" v-show="puntoSeleccionado.showPopup" classname="form-control" placeholder="Busca una dirección" v-on:placechanged="getAddressDiection"
+    ></vue-google-autocomplete>
+
   </div>
 </template>
 <script>
 import Mapbox from "mapbox-gl";
 import {mapState} from 'vuex'; 
 import firebase from "firebase";
+import { db } from "../main";
 import Plotly from 'plotly.js';
 import axios from 'axios';
-import moment from 'moment'
+import moment from 'moment';
+import VueGoogleAutocomplete from 'vue-google-autocomplete';
 var _ = require('lodash');
 
+
 export default {
+  components: { VueGoogleAutocomplete },
   computed: {
     ...mapState(['puntoSeleccionado'])
   },
   data() {
     return {
+      lugarList: null,
+      lugaresGuardados: [],
+      address: '',
       radiomsj: false,
       showInfoIcon: false,
       mapExpanded: true,
@@ -275,6 +292,13 @@ export default {
   mounted () {
     this.createMap()
     this.map.doubleClickZoom.disable()
+    db.collection('usuarios').doc(this.email).collection('lugares').get().then((snapshot) => {
+      snapshot.forEach((doc) => {
+        this.lugaresGuardados.push(doc.data());
+      });
+    }).catch((err) => {
+      console.log('Error getting documents', err);
+    });
   },
   created: function () {
     this.debouncedGetAnswer = _.debounce(this.delimitarArea, 500);
@@ -287,23 +311,49 @@ export default {
 
   },
   methods: {
-    format_date(value){
-      if (value) {                          
-        return moment(String(value)).format('YYYY-MM-DD')
+    /**
+    * When the location found
+    * @param {Object} addressData Data of the found location
+    * @param {Object} placeResultData PlaceResult object
+    * @param {String} id Input container ID
+    */
+    getAddressDiection: function (addressData, placeResultData, id) {
+      console.log(placeResultData);
+      console.log(id);
+      console.log(addressData);
+      if (this.map.getLayer("points")) {
+        this.map.removeLayer("points");
       }
+      if (this.map.getSource("point")) {
+        this.map.removeSource("point");
+      }
+      this.$store.commit('setPoint',{
+          lat: addressData.latitude,
+          lng: addressData.longitude,
+          showup: true
+        });
+      this.newPoint();
     },
-    createMap: function () {
-      Mapbox.accessToken = this.accessToken
-      this.map = new Mapbox.Map({ //acceder a map con store
-        container: 'map', 
-        style: this.mapStyle,
-        center:  this.center,
-        zoom: this.zoom
-      })
-      /*this.map.on('moveend', () => {
-        console.log(this.$store.state.puntoSeleccionado.showPopup)
-      })*/
-      this.map.on('dblclick', (e) => {
+    pointListSelected(lugar){
+      if (this.map.getLayer("points")) {
+        this.map.removeLayer("points");
+      }
+      if (this.map.getSource("point")) {
+        this.map.removeSource("point");
+      }
+      var precision = 1000000000000000; // 15 decimals
+      var randomnum = Math.floor(Math.random() * (0 * precision - 1 * precision) + 1 * precision) / (1*precision);
+      randomnum = (randomnum - randomnum.toFixed(7)).toFixed(15)
+      var lati = (+randomnum + +lugar.lat).toFixed(15);
+      var long = (+randomnum + +lugar.long).toFixed(15);
+      this.$store.commit('setPoint',{
+          lat: parseFloat(lati),
+          lng: parseFloat(long),
+          showup: true
+        });
+      this.newPoint();
+    },
+    newPoint(){
         this.radio = 0;
         this.calendarShowup = false;
         this.showButtons = true;
@@ -317,7 +367,6 @@ export default {
         this.histogramaFrame.width = "50%";
         this.popupLugarContainer.left = "50%";
         this.menuShowup = false;
-        
         if (this.map.getLayer("earthquakes-heat")) {
           this.map.removeLayer("earthquakes-heat");
         }
@@ -348,11 +397,7 @@ export default {
         if (this.map.getSource("prediction")) {
           this.map.removeSource("prediction");
         }
-        this.$store.commit('setPoint',{
-          lat: e.lngLat.lat,
-          lng: e.lngLat.lng,
-          showup: true
-        });
+        
         this.$store.commit('setDireccion');
         this.map.addSource("point", {
           type: "geojson",
@@ -377,6 +422,36 @@ export default {
           }
         });
         this.$store.commit('showupTrue')
+    },
+    format_date(value){
+      if (value) {                          
+        return moment(String(value)).format('YYYY-MM-DD')
+      }
+    },
+    createMap: function () {
+      Mapbox.accessToken = this.accessToken
+      this.map = new Mapbox.Map({ //acceder a map con store
+        container: 'map', 
+        style: this.mapStyle,
+        center:  this.center,
+        zoom: this.zoom
+      })
+      /*this.map.on('moveend', () => {
+        console.log(this.$store.state.puntoSeleccionado.showPopup)
+      })*/
+      this.map.on('dblclick', (e) => {
+        if (this.map.getLayer("points")) {
+        this.map.removeLayer("points");
+      }
+      if (this.map.getSource("point")) {
+        this.map.removeSource("point");
+      }
+      this.$store.commit('setPoint',{
+          lat: e.lngLat.lat,
+          lng: e.lngLat.lng,
+          showup: true
+        });
+      this.newPoint();
       });
     },
     esconderMensaje() {
@@ -470,8 +545,8 @@ export default {
       if(this.opcionSelecc == 'dias'){
         //http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7400/?radio=2000&lat=19.50146&long=-99.24939&opcion=histograma&parametro=diaSemana
         //http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7400/?radio=1700&lat=19.54532&long=-99.13508&opcion=histograma&parametro=diaSemana
-        //let url = 'http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7400/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&opcion=histograma&parametro=diaSemana';
-        let url = 'http://localhost:8080/diaSemana.json'
+        let url = 'https://capitalroute.codes:7400/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&opcion=histograma&parametro=diaSemana';
+        //let url = 'http://localhost:8080/diaSemana.json'
         this.x = this.dias;
         axios.get(url,{ crossdomain: true })
         .then(response => {
@@ -491,8 +566,8 @@ export default {
       
       if(this.opcionSelecc == 'meses'){
         this.x = this.meses;
-        //let url = 'http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7400/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&opcion=histograma&parametro=mes';
-        let url = 'http://localhost:8080/mes.json'
+        let url = 'https://capitalroute.codes:7400/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&opcion=histograma&parametro=mes';
+        //let url = 'http://localhost:8080/mes.json'
         axios.get(url,{ crossdomain: true })
         .then(response => {
           this.info = response.data
@@ -507,8 +582,8 @@ export default {
       }
       if(this.opcionSelecc == 'años'){
         this.x = this.años;
-        //let url = 'http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7400/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&opcion=histograma&parametro=ano';
-        let url = 'http://localhost:8080/ano.json'
+        let url = 'https://capitalroute.codes:7400/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&opcion=histograma&parametro=ano';
+        //let url = 'http://localhost:8080/ano.json'
         axios.get(url,{ crossdomain: true })
         .then(response => {
           this.info = response.data;
@@ -565,8 +640,8 @@ export default {
         if (this.map.getSource("point")) {
           this.map.removeSource("point");
         }
-          //let url = 'http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7400/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&opcion=mapaCalor';
-          let url = 'http://localhost:8080/yh.json'
+          let url = 'https://capitalroute.codes:7400/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&opcion=mapaCalor';
+          //let url = 'http://localhost:8080/yh.json'
           this.heatMapButton.msj = 'Ocultar mapa de calor';
           this.map.addSource('trees', {
             type: 'geojson',
@@ -741,8 +816,8 @@ export default {
     },
     getPredicciones(){
       console.log(this.date);
-      //let url = 'http://ec2-3-130-122-111.us-east-2.compute.amazonaws.com:7300/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&fechaInicial='+this.format_date(this.date)+'%2000:00&fechaFinal='+this.format_date(this.date)+'%2023:59';
-      let url = 'http://localhost:8080/responsePredicciones.json'
+      let url = 'https://capitalroute.codes:7300/?radio='+this.radio*1000+'&lat='+this.puntoSeleccionado.lat.toFixed(5)+'&long='+this.puntoSeleccionado.lng.toFixed(5)+'&fechaInicial='+this.format_date(this.date)+'%2000:00&fechaFinal='+this.format_date(this.date)+'%2023:59';
+      //let url = 'http://localhost:8080/responsePredicciones.json'
       axios.get(url,{ crossdomain: true })
         .then(response => {
           var coorde = response.data;
@@ -974,6 +1049,13 @@ export default {
   height: 100%;
 }
 #map {
+}
+#search{
+  position: absolute;
+  width: 10%;
+  height: 10%;
+  left: 50%;
+  top: 9%;
 }
 #seleccionHora{
   position: absolute;
@@ -1407,6 +1489,16 @@ export default {
   width: 7vh;
   height: 7vh;
 }
+#search{
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  width: 28vw;
+  height: 3em;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+}
+
 </style>
 
 

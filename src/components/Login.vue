@@ -9,29 +9,29 @@
         <v-row id="userInput" no-gutters>
           <v-col cols="auto" sm="3">
             <img src="../assets/user.png" alt />
-          </v-col >
+          </v-col>
           <v-col cols="auto" sm="8">
             <v-text-field v-model="usuario" label="Usuario"></v-text-field>
           </v-col>
         </v-row>
-        <v-row  id="passwordInput" no-gutters>
+        <v-row id="passwordInput" no-gutters>
           <v-col cols="auto" sm="3">
             <img src="../assets/lock.png" alt />
           </v-col>
-          <v-col cols="auto" sm="8">  
+          <v-col cols="auto" sm="8">
             <v-text-field type="password" label="Contraseña" v-model="password" />
-          </v-col>  
+          </v-col>
         </v-row>
       </div>
-      <div id="googleLogin"  @click="loginGoogle">
+      <div id="googleLogin" @click="loginGoogle">
         <img type="button" src="../assets/google-icon.png" alt />
       </div>
       <div id="loginButtonWrapper">
         <v-btn id="loginButton" @click="login">LOGIN</v-btn>
       </div>
       <div id="extraText">
-        <a href id="olvidarPassword" @click="olvidarPasswd">¿Olvidaste tu Contraseña?</a>
-        <a href id="createCuenta" @click="crearCuenta">Crear nueva cuenta</a>
+        <a id="olvidarPassword" @click="olvidarPasswd">¿Olvidaste tu Contraseña?</a>
+        <a id="createCuenta" @click="crearCuenta">Crear nueva cuenta</a>
       </div>
     </div>
     <div class="bottom"></div>
@@ -39,6 +39,7 @@
 </template>
 <script>
 import firebase from "firebase";
+
 //import { db } from "@/main";
 export default {
   data() {
@@ -49,45 +50,50 @@ export default {
   },
   methods: {
     login() {
+      firebase.auth().useDeviceLanguage();
       firebase
         .auth()
         .signInWithEmailAndPassword(this.usuario, this.password)
         .then(user => {
           localStorage.setItem("usuario", user);
           this.$router.replace("/inicio");
+        })
+        .catch(function() {
+          alert("Error al Iniciar Sesion");
         });
     },
     loginGoogle() {
       var provider = new firebase.auth.GoogleAuthProvider();
-      var self = this
-      firebase.auth().signInWithPopup(provider).then(function(result) {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        //var token = result.credential.accessToken;
-        // The signed-in user info.
-        var user = result.user;
-        localStorage.setItem("usuario", user);
-        self.$router.replace("/inicio");
-        // ...
-      }).catch(function(error) {
-        // Handle Errors here.
-        console.log(error);
-        //var errorCode = error.code;
-        //var errorMessage = error.message;
-        // The email of the user's account used.
-        //var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        //var credential = error.credential;
-        // ...
-      });
-      
-      
+      var self = this;
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(function(result) {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          //var token = result.credential.accessToken;
+          // The signed-in user info.
+          var user = result.user;
+          localStorage.setItem("usuario", user);
+          self.$router.replace("/inicio");
+          // ...
+        })
+        .catch(function() {
+          // Handle Errors here.
+          alert("Error al Iniciar Sesion");
+          //var errorCode = error.code;
+          //var errorMessage = error.message;
+          // The email of the user's account used.
+          //var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          //var credential = error.credential;
+          // ...
+        });
     },
     olvidarPasswd() {
       this.$router.replace("/recuperarCuenta");
     },
     crearCuenta() {
       this.$router.replace("/registro");
-      
     }
   }
 };
@@ -96,6 +102,11 @@ export default {
 .loginWrapper {
   width: 100%;
   height: 100%;
+}
+.loginError {
+  border-radius: 1em;
+  border-style: dashed;
+  color: red;
 }
 .loginCard {
   position: absolute;
@@ -124,14 +135,12 @@ export default {
   left: 0%;
 }
 .textInput img {
-  
   width: 5vh;
   height: 5vh;
   margin-right: 5%;
   margin-top: 5%;
 }
 #passwordInput {
-  
   position: relative;
   left: 50%;
   top: 20%;
@@ -140,7 +149,6 @@ export default {
   margin: 1%;
 }
 #userInput {
-  
   position: relative;
   left: 50%;
   top: 20%;
@@ -163,17 +171,16 @@ export default {
 }
 #extraText {
   position: relative;
-  bottom: -10vh;
+  top:  7vh;
 }
 #olvidarPassword {
-  float: left;
-  position: fixed;
-  left: -20%;
+  position: relative;
+
+  left: -30%;
 }
 #createCuenta {
-  float: right;
-  position: fixed;
-  right: -20%;
+  position: relative;
+  right: -30%;
 }
 .top {
   position: absolute;
