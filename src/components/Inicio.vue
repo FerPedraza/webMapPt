@@ -373,6 +373,7 @@ export default {
   },
   mounted() {
     this.createMap();
+    console.log(localStorage.getItem("usuario"))
     this.map.doubleClickZoom.disable();
     db.collection("usuarios")
       .doc(localStorage.getItem("usuario"))
