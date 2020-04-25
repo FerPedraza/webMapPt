@@ -373,7 +373,7 @@ export default {
   },
   mounted() {
     this.createMap();
-    console.log(localStorage.getItem("usuario"))
+    console.log(localStorage.getItem("usuario"));
     this.map.doubleClickZoom.disable();
     db.collection("usuarios")
       .doc(localStorage.getItem("usuario"))
@@ -1222,6 +1222,8 @@ export default {
 .loginWrapper {
   width: 100%;
   height: 100%;
+  box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
+  filter: blur(9px);
 }
 #map {
 }
