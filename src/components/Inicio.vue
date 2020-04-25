@@ -375,7 +375,7 @@ export default {
     this.createMap();
     this.map.doubleClickZoom.disable();
     db.collection("usuarios")
-      .doc(this.email)
+      .doc(localStorage.getItem("usuario"))
       .collection("lugares")
       .get()
       .then(snapshot => {

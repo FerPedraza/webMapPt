@@ -55,7 +55,8 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.usuario, this.password)
         .then(user => {
-          localStorage.setItem("usuario", user);
+          console.log(user)
+          localStorage.setItem("usuario", this.usuario);
           this.$router.replace("/inicio");
         })
         .catch(function() {
