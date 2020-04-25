@@ -103,7 +103,7 @@
     <v-btn v-show="heatMapButton.showup" v-bind:id="['heatMapButtonStyle']" v-bind:style="buttonMapaCalor" rounded color="#1a9ea6"  @click="mapaCalor" dark>{{heatMapButton.msj}}</v-btn>
     <img v-show="heatMapButton.showup && mapExpanded"  id="buttonMapExpand" type="button" @click="maximizeMapa" src="../assets/expand.png" width="100%" height="100%" alt/>
     <img v-show="!mapExpanded" id="buttonMapMinimize" type="button" @click="minimizaMapa" src="../assets/minimize.png" width="100%" height="100%" alt/> 
-    <vue-google-autocomplete id="search" v-show="puntoSeleccionado.showPopup" classname="form-control" placeholder="Busca una dirección" v-on:placechanged="getAddressDiection"
+    <vue-google-autocomplete id="search" v-show="showUpBar" classname="form-control" placeholder="Busca una dirección" v-on:placechanged="getAddressDiection"
     ></vue-google-autocomplete>
 
   </div>
@@ -127,6 +127,7 @@ export default {
   },
   data() {
     return {
+      showUpBar: true,
       lugarList: null,
       lugaresGuardados: [],
       address: '',
@@ -519,6 +520,7 @@ export default {
         if (this.map.getSource("trees")) {
           this.map.removeSource("trees");
         }
+        this.showUpBar = false;
         this.puntoSeleccionado.showPopup = false;
         this.showInfoIcon = true;
         this.buttonMapaCalor.right ="51%";
@@ -787,6 +789,7 @@ export default {
         this.map.removeSource("trees");
       }
       this.heatMapButton.msj = "Mostrar mapa de calor"
+      this.showUpBar = false;
       this.puntoSeleccionado.showPopup = false;
       this.calendarShowup = false;
       this.showButtons = true;
@@ -799,8 +802,6 @@ export default {
       this.mapContainer.left = "0%";
       this.histogramaFrame.width = "50%";
       this.popupLugarContainer.left = "50%";      
-      
-      this.puntoSeleccionado.showPopup = false;
       this.showInfoIcon = true;
       this.calendarShowup = true;
       this.showButtons = true;
@@ -1024,6 +1025,7 @@ export default {
         this.map.removeSource("trees");
       }
       this.heatMapButton.msj = "Mostrar mapa de calor"
+      this.showUpBar = true;
       this.puntoSeleccionado.showPopup = true;
       this.calendarShowup = false;
       this.showButtons = true;
