@@ -373,7 +373,7 @@ export default {
   },
   mounted() {
     this.createMap();
-    console.log(localStorage.getItem("usuario"))
+    console.log(localStorage.getItem("usuario"));
     this.map.doubleClickZoom.disable();
     db.collection("usuarios")
       .doc(localStorage.getItem("usuario"))
@@ -1103,6 +1103,7 @@ export default {
         .signOut()
         .then(function() {
           // Sign-out successful.
+          localStorage.clear();
         })
         .catch(function(error) {
           // An error happened.
