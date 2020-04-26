@@ -983,14 +983,13 @@ export default {
       this.calendarShowup = false;
     },
     hideFechaMsj() {
-      console.log("VERGA WE");
       this.fechamsj = false;
       this.calendarShowup = true;
     },
     getPredicciones() {
       var hoy = moment().format("ddd MMM DD YYYY");
       var fechaSeleccionada = moment(this.date).format("ddd MMM DD YYYY");
-      if (fechaSeleccionada < hoy) {
+      if (moment(fechaSeleccionada).unix() < moment(hoy).unix()) {
         this.fechamsj = true;
       } else {
         let url =
@@ -1249,7 +1248,7 @@ export default {
 @import url("https://api.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css");
 @media (min-width: 1500px) {
   #lugaresFavoritos {
-   display: none;
+    display: none;
   }
 }
 
