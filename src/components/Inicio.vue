@@ -1,7 +1,7 @@
 <template>
-  <div class="loginWrapper">
+  <div class="loginWrapper" v-bind:class="{ active: !mostrarMensaje }">
     <div v-bind:id="['map']" v-bind:style="mapContainer"></div>
-    <div id="bienvenidaFrame" v-show="mostrarMensaje">
+    <div class="bienvenidaFrame" v-show="mostrarMensaje">
       <h1 id="bienvenidaMessage">Bienvenido</h1>
       <p id="mensajePunto">Haz clic dos veces en el mapa para seleccionar un punto</p>
       <v-btn id="entendidoButton" type="button" @click="esconderMensaje">Entendido</v-btn>
@@ -159,6 +159,7 @@
       height="100%"
       alt
     />
+
     <vue-google-autocomplete
       id="search"
       v-show="showUpBar"
@@ -190,6 +191,7 @@ export default {
       lugarList: null,
       lugaresGuardados: [],
       address: "",
+      isActive: false,
       radiomsj: false,
       showInfoIcon: false,
       mapExpanded: true,
@@ -1223,6 +1225,13 @@ export default {
 .loginWrapper {
   width: 100%;
   height: 100%;
+  box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
+}
+.loginWrapper > *:not(.bienvenidaFrame) {
+  filter: blur(10px);
+}
+.active > *:not(.bienvenidaFrame) {
+  filter: blur(0px);
 }
 #map {
 }
@@ -1368,7 +1377,7 @@ export default {
   width: 100%;
   background: #1a9ea6;
 }
-#bienvenidaFrame {
+.bienvenidaFrame {
   position: absolute;
   left: 50%;
   top: 50%;
