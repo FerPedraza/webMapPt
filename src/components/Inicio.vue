@@ -1247,6 +1247,12 @@ export default {
 </script>
 <style scoped>
 @import url("https://api.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css");
+@media (min-width: 1500px) {
+  #lugaresFavoritos {
+   display: none;
+  }
+}
+
 .loginWrapper {
   width: 100%;
   height: 100%;
@@ -1503,7 +1509,7 @@ export default {
   font-family: Manjari;
   color: #ffffff;
 }
-#closeCalendario{
+#closeCalendario {
   position: absolute;
   top: 0em;
   right: 0em;
