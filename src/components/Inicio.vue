@@ -3,7 +3,9 @@
     <div v-bind:id="['map']" v-bind:style="mapContainer"></div>
     <div class="bienvenidaFrame" v-show="mostrarMensaje">
       <h1 id="bienvenidaMessage">Bienvenido</h1>
-      <p id="mensajePunto">Haz clic dos veces en el mapa para seleccionar un punto</p>
+      <p
+        id="mensajePunto"
+      >Haz clic dos veces en el mapa para seleccionar un punto o busca una dirección manualmente</p>
       <v-btn id="entendidoButton" type="button" @click="esconderMensaje">Entendido</v-btn>
     </div>
     <div
@@ -61,6 +63,8 @@
               <br />para el análisis
             </p>
             <v-btn id="calendarioButton" color="#1a9ea6" @click="analisDelictivo">Hecho</v-btn>
+            <p id="closeCalendario" color="#1a9ea6" @click="calendarShowup = false">Cerrar</p>
+
             <div id="calendario">
               <v-date-picker v-model="date"></v-date-picker>
             </div>
@@ -75,6 +79,16 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="#1a9ea6" text @click="radiomsj = false">Entendido</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <v-dialog v-model="fechamsj" persistent max-width="290" justify="center">
+        <v-card>
+          <v-card-title class="headline">¡Oh oh!</v-card-title>
+          <v-card-text>No tiene sentido tratar de predecir el pasado, selecciona una fecha diferente</v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="#1a9ea6" text @click="hideFechaMsj">Entendido</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -120,7 +134,7 @@
         rounded
         color="#1a9ea6"
         @click="analisisDelictivo"
-      >Análisis delictivo</v-btn>
+      >Análisis Predictivo</v-btn>
     </div>
     <img
       v-show="showButtons && showInfoIcon && !menuShowup"
@@ -193,6 +207,7 @@ export default {
       address: "",
       isActive: false,
       radiomsj: false,
+      fechamsj: false,
       showInfoIcon: false,
       mapExpanded: true,
       histoExpanded: false,
@@ -967,88 +982,98 @@ export default {
       this.getPredicciones();
       this.calendarShowup = false;
     },
+    hideFechaMsj() {
+      console.log("VERGA WE");
+      this.fechamsj = false;
+      this.calendarShowup = true;
+    },
     getPredicciones() {
-      console.log(this.date);
-      let url =
-        "https://capitalroute.codes:7300/?radio=" +
-        this.radio * 1000 +
-        "&lat=" +
-        this.puntoSeleccionado.lat.toFixed(5) +
-        "&long=" +
-        this.puntoSeleccionado.lng.toFixed(5) +
-        "&fechaInicial=" +
-        this.format_date(this.date) +
-        "%2000:00&fechaFinal=" +
-        this.format_date(this.date) +
-        "%2023:59";
-      //let url = 'http://localhost:8080/responsePredicciones.json'
-      axios
-        .get(url, { crossdomain: true })
-        .then(response => {
-          var coorde = response.data;
-          console.log(coorde.preds[1].coordenadas[1]);
-          var coordena = [];
-          for (var i = 0; i < Object.keys(coorde.preds).length; i++) {
-            coordena = coordena.concat({
-              type: "Feature",
-              geometry: {
-                type: "Point",
-                coordinates: [
-                  coorde.preds[i].coordenadas[1],
-                  coorde.preds[i].coordenadas[0]
-                ]
-              },
-              properties: {
-                fecha: coorde.preds[i].fecha
+      var hoy = moment().format("ddd MMM DD YYYY");
+      var fechaSeleccionada = moment(this.date).format("ddd MMM DD YYYY");
+      if (fechaSeleccionada < hoy) {
+        this.fechamsj = true;
+      } else {
+        let url =
+          "https://capitalroute.codes:7300/?radio=" +
+          this.radio * 1000 +
+          "&lat=" +
+          this.puntoSeleccionado.lat.toFixed(5) +
+          "&long=" +
+          this.puntoSeleccionado.lng.toFixed(5) +
+          "&fechaInicial=" +
+          this.format_date(this.date) +
+          "%2000:00&fechaFinal=" +
+          this.format_date(this.date) +
+          "%2023:59";
+        //let url = 'http://localhost:8080/responsePredicciones.json'
+        axios
+          .get(url, { crossdomain: true })
+          .then(response => {
+            var coorde = response.data;
+            console.log(coorde.preds[1].coordenadas[1]);
+            var coordena = [];
+            for (var i = 0; i < Object.keys(coorde.preds).length; i++) {
+              coordena = coordena.concat({
+                type: "Feature",
+                geometry: {
+                  type: "Point",
+                  coordinates: [
+                    coorde.preds[i].coordenadas[1],
+                    coorde.preds[i].coordenadas[0]
+                  ]
+                },
+                properties: {
+                  fecha: coorde.preds[i].fecha
+                }
+              });
+            }
+            this.coordenadas = coordena;
+            this.map.addSource("prediction", {
+              type: "geojson",
+              data: {
+                type: "FeatureCollection",
+                features: this.coordenadas
               }
             });
-          }
-          this.coordenadas = coordena;
-          this.map.addSource("prediction", {
-            type: "geojson",
-            data: {
-              type: "FeatureCollection",
-              features: this.coordenadas
-            }
-          });
-          this.map.addLayer({
-            id: "predictions",
-            type: "symbol",
-            source: "prediction",
-            layout: {
-              "icon-image": "danger",
-              "icon-size": 0.5
-            }
-          });
-          this.map.on("click", "predictions", e => {
-            var coordinates = e.features[0].geometry.coordinates.slice();
-            var fecha = e.features[0].properties.fecha;
-            // Ensure that if the map is zoomed out such that multiple
-            // copies of the feature are visible, the popup appears
-            // over the copy being pointed to.
-            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-              coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-            }
-            console.log(fecha);
-            new Mapbox.Popup()
-              .setLngLat(coordinates)
-              .setHTML(fecha)
-              .addTo(this.map);
-          });
+            this.map.addLayer({
+              id: "predictions",
+              type: "symbol",
+              source: "prediction",
+              layout: {
+                "icon-image": "danger",
+                "icon-size": 0.5
+              }
+            });
+            this.map.on("click", "predictions", e => {
+              var coordinates = e.features[0].geometry.coordinates.slice();
+              var fecha = e.features[0].properties.fecha;
+              // Ensure that if the map is zoomed out such that multiple
+              // copies of the feature are visible, the popup appears
+              // over the copy being pointed to.
+              while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+              }
+              console.log(fecha);
+              new Mapbox.Popup()
+                .setLngLat(coordinates)
+                .setHTML(fecha)
+                .addTo(this.map);
+            });
 
-          // Change the cursor to a pointer when the mouse is over the places layer.
-          this.map.on("mouseenter", "predictions", () => {
-            this.map.getCanvas().style.cursor = "pointer";
-          });
+            // Change the cursor to a pointer when the mouse is over the places layer.
+            this.map.on("mouseenter", "predictions", () => {
+              this.map.getCanvas().style.cursor = "pointer";
+            });
 
-          // Change it back to a pointer when it leaves.
-          this.map.on("mouseleave", "predictions", () => {
-            this.map.getCanvas().style.cursor = "";
+            // Change it back to a pointer when it leaves.
+            this.map.on("mouseleave", "predictions", () => {
+              this.map.getCanvas().style.cursor = "";
+            });
+          })
+          .catch(error => {
+            console.log(error);
           });
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      }
     },
     maximizeMapa() {
       this.mapExpanded = false;
@@ -1233,6 +1258,7 @@ export default {
 .active > *:not(.bienvenidaFrame) {
   filter: blur(0px);
 }
+
 #map {
 }
 #search {
@@ -1471,11 +1497,16 @@ export default {
 #calendarioButton {
   position: absolute;
   left: 50%;
-  top: 70%;
+  top: 80%;
   width: 30%;
   transform: translate(-50%, -50%);
   font-family: Manjari;
   color: #ffffff;
+}
+#closeCalendario{
+  position: absolute;
+  top: 0em;
+  right: 0em;
 }
 #lugarTexto {
   position: absolute;
