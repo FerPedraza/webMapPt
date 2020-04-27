@@ -55,7 +55,7 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.usuario, this.password)
         .then(user => {
-          console.log(user)
+          console.log(user);
           localStorage.setItem("usuario", this.usuario);
           this.$router.replace("/inicio");
         })
@@ -100,6 +100,59 @@ export default {
 };
 </script>
 <style scoped>
+@media (min-width: 300px) and (max-width: 400px) {
+  .textInput #userInput {
+    position: relative;
+    top: -1.5em;
+  }
+  .textInput #passwordInput {
+    position: relative;
+    top: -3em;
+  }
+  .textInput img {
+    position: relative;
+    top: 3em;
+    right: 3em;
+  }
+  #loginButtonWrapper button {
+    position: relative;
+    top: -11em;
+  }
+  #extraText a {
+    position: relative;
+    top: -6em;
+    right: -8em;
+    margin-left: -7em;
+    margin-right: -2em;
+    font-size: 0.86em;
+  }
+  #googleLogin img {
+    position: relative;
+    top: -2em;
+  }
+}
+@media (min-width: 500px) and (max-width: 800px) {
+  .textInput img {
+    position: relative;
+    top: 3em;
+    right: 3em;
+  }
+  #googleLogin img {
+    position: relative;
+    top: -2em;
+  }
+  #loginButtonWrapper button {
+    position: relative;
+    top: -4em;
+  }
+  #extraText a {
+    position: relative;
+    top: -3em;
+    margin-left: -7em;
+    margin-right: -2em;
+    right: -8em;
+  }
+}
 .loginWrapper {
   width: 100%;
   height: 100%;
@@ -172,7 +225,7 @@ export default {
 }
 #extraText {
   position: relative;
-  top:  7vh;
+  top: 7vh;
 }
 #olvidarPassword {
   position: relative;
