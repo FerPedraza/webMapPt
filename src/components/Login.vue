@@ -153,6 +153,23 @@ export default {
     right: -8em;
   }
 }
+@media (min-width: 600px) and (max-width: 1000px) {
+  .textInput img {
+    display:none;
+  }
+  #extraText a {
+    position: relative;
+    top: 5em;
+  }
+  #googleLogin img {
+    position: relative;
+    top: 2em;
+  }
+  #loginButtonWrapper button {
+    position: relative;
+    top: 4em;
+  }
+}
 .loginWrapper {
   width: 100%;
   height: 100%;
